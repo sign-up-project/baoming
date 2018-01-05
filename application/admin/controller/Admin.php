@@ -7,7 +7,9 @@ class Admin extends controller
 {
     public function admin()
     {
-        //$user = Db::name('user');
-        return $this->fetch('admin');
+        $user = Db::name('user')->find();
+        $this->assign('user',$user);
+        var_dump($user);
+        return $this->fetch();
     }
 }
