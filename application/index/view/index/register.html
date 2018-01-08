@@ -4,8 +4,61 @@
 <head>
     <meta charset="UTF-8">
     <title>注册</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <link rel="stylesheet" href="__STATIC__/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="__CSS__/common/style.css">
+    <link rel="stylesheet" href="__CSS__/index/register.css">
+
+    <script type="text/javascript" src="__JS__/common/md5.min.js"></script>
+    <script type="text/javascript" src="__JS__/common/vue.js"></script>
+    <script type="text/javascript" src="__JS__/common/axios.min.js"></script>
+    <script type="text/javascript" src="__JS__/index/register.js"></script>
 </head>
 <body>
+
+<div id="reg_page" class="form_page" v-bind:style="{width: width + 'px',height: height + 'px',}">
+    <!--模糊层-->
+    <div class="blur"></div>
+    <!--主要内容 start-->
+    <div class="main">
+        <div class="container" >
+            <div class="row">
+                <div class="form_wrap col-xs-12 col-md-6 col-md-offset-3">
+
+                    <p class="f_title">注册</p>
+                    <form action="" method="post" class="" id="reg_form" v-on:submit.prevent="submitForm">
+                        <label class="label">
+                            <span class="l_t"><span class="red">*</span> 用户名</span>
+                            <input type="text" name="username" placeholder="用户名" class="f_username" v-model="account.username"/>
+                        </label>
+
+                        <label class="label">
+                            <span class="l_t">登录密码</span>
+                            <input type="password" name="password" placeholder="登录密码" class="f_pwd" v-model="account.password" />
+                        </label>
+
+                        <label class="label">
+                            <span class="l_t">确认密码</span>
+                            <input type="password"  placeholder="登录密码" class="f_pwd" v-model="account.password" />
+                        </label>
+
+                        <label class="label">
+                            <span class="l_t">手机号码</span>
+                            <input type="number" name="phone" placeholder="手机号码" class="f_pwd" v-model="account.phone" />
+                        </label>
+                        <br>
+                        <button type="submit" class="sub_btn">注 册</button>
+                    </form>
+                    <p class="f_btn login_btn"> 已有账户？<a href="login"> 立即登录</a></p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--主要内容 end-->
+</div>
+
 
 </body>
 </html>
