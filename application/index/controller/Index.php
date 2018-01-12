@@ -1,48 +1,34 @@
 <?php
 namespace app\index\controller;
 
-use think\Controller;
+use app\index\common\Base;
 use think\Db;
-use think\Request;
-
-class Index extendS Controller
+use think\Session;
+class Index extendS Base
 {
-    protected $request;
-
-    public function __construct ()
-    {
-      $this -> request = Request::instance();
-    }
-
-
+    //首页(用户个人中心)
     public function index()
     {
         return view();
     }
-
-    // 用户登录页面
-    public function login()
+    //个人中心用户数据；
+    public function getUserinfo()
     {
-        return view();
+        $login_info = Session::get('index_login_status');
+        $uid = $login_info['user_id'];
+        $res = Db::name('user') -> where(['id'=>$uid]) -> find();
+        if(empty($res)){
+            return json_encode(array('status'=>0 ,'msg'=>'网络繁忙'));
+        }
+        return json_encode(array('status'=>1,'data'=>$res,'msg'=>''));
     }
-    //检验用户登录
-    public function checkLogin()
-    {
-        $where = $this->request -> post();
+    //退出登录
+    public function loginOut() {
+        if(Session::has('index_login_status')){
+            Session::delete('index_login_status');
+            return json_encode(array('status'=>1,'msg'=>'退出登录成功'));
+        }
+        return json_encode(array('status'=>1,'msg'=>'退出登录成功'));
+    }
 
-        // $res = Db::name('user') ->where($where)-> select();
-        //
-        // if(!empty($res)){
-        //   return 1;
-        // }else{
-        //   return 0;
-        // }
-        return json_encode(array('status'=>1,'msg'=>'登录成功！'));
-    }
-
-    //用户注册；
-    public function register()
-    {
-        return view();
-    }
 }

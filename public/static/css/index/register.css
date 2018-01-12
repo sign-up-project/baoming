@@ -21,11 +21,11 @@
 	color: #ffffff;
 	font-family: Arial;
 }
-#reg_form .label {
+#reg_form .f_label {
 	display: block;
 	margin-bottom: 10px;
 }
-.label .l_t {
+.f_label .l_t {
 	display: block;
 	font-size: 12px;
 	color: #aaa;
@@ -35,7 +35,7 @@
 .l_t .red {
 	color: #ff0000;
 }
-#reg_form .label input{
+#reg_form .f_label input{
 
 	background: rgba(255,255,255,.1)
 }
