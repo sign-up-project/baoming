@@ -6,12 +6,14 @@
     <title>登录</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="stylesheet" href="__STATIC__/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="__STATIC__/layer_mobile/need/layer.css">
     <link rel="stylesheet" href="__CSS__/common/style.css">
     <link rel="stylesheet" href="__CSS__/index/login.css">
 
     <script type="text/javascript" src="__JS__/common/md5.min.js"></script>
     <script type="text/javascript" src="__JS__/common/vue.js"></script>
     <script type="text/javascript" src="__JS__/common/axios.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/layer_mobile/layer.js"></script>
     <script type="text/javascript" src="__JS__/index/login.js"></script>
 </head>
 <body>
@@ -26,13 +28,13 @@
 
                         <p class="f_title">用户登录</p>
                         <form action="" method="post" class="" id="login_form" v-on:submit.prevent="submitForm">
-                            <input type="text" name="username" placeholder="用户名" class="f_username" v-model="account.username"/>
+                            <input type="text" name="account" placeholder="用户名" class="f_username" v-model="account.account"/>
                             <br>
                             <input type="password" name="password" placeholder="登录密码" class="f_pwd" v-model="account.password" />
                             <br>
                             <button type="submit" class="sub_btn"> 登 录 </button>
                         </form>
-                        <p class="f_btn reg_btn"> 没有账户？<a href="register"> 立即注册</a></p>
+                        <p class="f_btn reg_btn"> 没有账户？<a href="{:url('index/login/register')}"> 立即注册</a></p>
 
                     </div>
                 </div>

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>报名表</title>
+
+    <link rel="stylesheet" href="__STATIC__/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="__STATIC__/layer_mobile/need/layer.css">
+    <link rel="stylesheet" href="__CSS__/index/entryform.css">
+
+    <script type="text/javascript" src="__JS__/common/md5.min.js"></script>
+    <script type="text/javascript" src="__JS__/common/vue.js"></script>
+    <script type="text/javascript" src="__JS__/common/axios.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/layer_mobile/layer.js"></script>
+    <script type="text/javascript" src="__JS__/index/entryform.js"></script>
+</head>
+
+<body>
+    <div id="entryform" class="form_page" v-bind:style="{width: width + 'px',height: height + 'px',}" v-cloak>
+        <!--模糊层-->
+        <div class="blur"></div>
+        <!--主要内容 start-->
+        <div class="main">
+            <div class="container">
+                <div class="row">
+                    <div class="form_wrap col-xs-12 col-md-6 col-md-offset-3">
+
+                        <p class="f_title">报名信息</p>
+                        <form action="" method="post" class="" id="" v-on:submit.prevent="submitForm($event)">
+                            <div class="f_info basic">
+                                <p class="i_title">基本信息 <span class="tip"></span> </p>
+                                <div class="f_label">
+                                    <label class="f_label_child">
+                                        <span class="l_t"><span class="red">&nbsp; * </span> 姓名</span>
+                                        <input type="text" name="username" placeholder="姓名" class="" v-model="info.username" />
+                                    </label>
+                                </div>
+
+                                <div class="f_label">
+                                    <span class="l_t"><span class="red">&nbsp; * </span> 性别</span>
+                                    <label class="f_label_radio">
+                                        <input type="radio" name="sex" value="1" v-model="info.sex"/>
+                                        <span>男</span>
+                                    </label>
+                                    <label class="f_label_radio">
+                                        <input type="radio" name="sex" value="0" v-model="info.sex"/>
+                                        <span>女</span>
+                                    </label>
+                                </div>
+
+                                <div class="f_label">
+                                    <label class="f_label_child">
+                                        <span class="l_t"><span class="red">&nbsp; * </span> 身份证号</span>
+                                        <input type="text" name="idcar" placeholder="身份证号" class="" v-model="info.idcar"/>
+                                    </label>
+                                </div>
+
+                                <div class="f_label">
+                                    <label class="f_label_child">
+                                        <span class="l_t"><span class="red">&nbsp; * </span> 所在学校</span>
+                                        <input type="text" name="school" placeholder="所在学校" class="" v-model="info.school"/>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="f_info major">
+                                <p class="i_title"><span class="red"> * </span>报考专业 <span class="tip">（选择一种）</span></p>
+                                <div class="f_label">
+                                    <p class="t_child">高中类 <span class="tip">（100%上本科）</span></p>
+
+                                    <label class="f_label_radio" >
+                                        <input type="radio" name="major" value="1" v-model="info.major"/>
+                                        <span>美术</span>
+                                    </label>
+
+                                    <label class="f_label_radio" >
+                                        <input type="radio" name="major" value="2" v-model="info.major"/>
+                                        <span>音乐舞蹈</span>
+                                    </label>
+
+                                    <label class="f_label_radio" >
+                                        <input type="radio" name="major" value="3" v-model="info.major"/>
+                                        <span>播音主持</span>
+                                    </label>
+                                    <p class="t_child">教育类 <span class="tip">（100%就业）</span></p>
+
+                                    <label class="f_label_radio" >
+                                        <input type="radio" name="major" value="4" v-model="info.major"/>
+                                        <span>美术</span>
+                                    </label>
+
+                                    <label class="f_label_radio" >
+                                        <input type="radio" name="major" value="5" v-model="info.major"/>
+                                        <span>音乐舞蹈</span>
+                                    </label>
+
+                                    <label class="f_label_radio" >
+                                        <input type="radio" name="major" value="6" v-model="info.major"/>
+                                        <span>播音主持</span>
+                                    </label>
+
+                                    <label class="f_label_radio" >
+                                        <input type="radio" name="major" value="7" v-model="info.major"/>
+                                        <span>休闲体育</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="f_info contact">
+                                <p class="i_title">联系方式 <span class="tip"></span></p>
+                                <div class="f_label">
+                                    <label class="f_label_child">
+                                        <span class="l_t"> 本人电话</span>
+                                        <input type="number" name="brtel" placeholder="本人手机号" class="" v-model="info.brtel"/>
+                                    </label>
+                                </div>
+                                <div class="f_label">
+                                    <label class="f_label_child">
+                                        <span class="l_t"><span class="red">*</span> 家长电话1</span>
+                                        <input type="number" name="telone" placeholder="手机号" class="" v-model="info.telone"/>
+                                    </label>
+                                </div>
+                                <div class="f_label">
+                                    <label class="f_label_child">
+                                        <span class="l_t"> 家长电话2</span>
+                                        <input type="number" name="teltwo" placeholder="手机号" class="" v-model="info.teltwo"/>
+                                    </label>
+                                </div>
+                                <div class="f_label input_address">
+                                    <p class="t_child">家庭住址</p>
+                                    <label class="f_label_child select_addr">
+                                        <span class="l_t"><span class="red">&nbsp; * </span> 所在区域</span>
+                                        <div class="select_addr_child"  v-on:click='showPicker'>
+                                            <div class="s_show_select" v-if="info.province == ''&& info.city == ''&& info.district == ''"><span> 点击选择区域</span> </div>
+                                            <div class="s_show_select val" v-else><span>{{info.province}}</span><span>{{info.city}}</span><span>{{info.district}}</span></div>
+                                        </div>
+                                    </label>
+                                    <label class="f_label_child">
+                                        <span class="l_t"> 详细住址</span>
+                                        <input type="text" name="address" placeholder="详细住址" class="select_addr" v-model="info.address"/>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="f_info pic">
+                                <p class="i_title"><span class="red"> * </span>上传图片 <span class="tip">证件照 样式的照片</span></p>
+                                <div class="img_select_box">
+                                    <label class="f_label">
+                                        <div class="input_file_box">
+                                            <input type="file" name="image" class="input_file" v-on:change="selectImg($event)">
+                                        </div>
+                                    </label>
+                                    <div class="preview_img">
+                                        <img v-bind:src="previewImg" alt="图片预览">
+                                    </div>
+                                </div>
+                               
+                            </div>
+
+                            <!--<div class="f_info marker">-->
+                                <!--<p class="i_title">备注 <span class="tip"></span></p>-->
+                                <!--<label class="f_label">-->
+                                    <!--<textarea name="marker"  cols="30" rows="10"></textarea>-->
+                                <!--</label>-->
+                            <!--</div>-->
+                            <div class="f_info cost">
+                                <p>报名费<span class="tip"></span> <span class="cost_money">￥{{cost}}</span></p>
+                            </div>
+
+                            <button type="submit" class="sub_btn"> 提 交 </button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--主要内容 end-->
+        <!--地区选择器-->
+        <div id="picker" v-show="isPicker">
+            <div class="shadow" v-on:click="hidePicker"></div>
+            <transition v-on:after-leave="afterLeave" name="moveup">
+                <div class="p address_picker" v-if="isSelectors">
+                    <p class="p_title">选择地址</p>
+                    <p class="show_value">
+                        <span class="" data-atype=1 v-on:click="clickSpanToMove($event)">{{info.province == ''&& info.city == ''&& info.district == ''? '请选择' : info.province}}</span>
+                        <span class="" data-atype=2 v-on:click="clickSpanToMove($event)">{{info.province != ''&& info.city == ''&& info.district == ''? '请选择': info.city}}</span>
+                        <span class="" data-atype=3 v-on:click="clickSpanToMove($event)">{{info.city != ''&&info.district==''? '请选择': info.district}}</span>
+                    </p>
+                    <hr>
+                    <div class="list_addr">
+                        <ul class="list_addr_main"
+                            v-bind:class=""
+                            v-bind:style="{width: width/2*3 + 'px',}">
+                            <li class="select_list" >
+                                <div class="select_list_box">
+                                    <a v-for="item in provinceList" class="item" href="javascript:" v-bind:data-aid="item.id" data-atype="1" v-on:click="selectAddr($event)" :key="item.id">
+                                        <span>{{item.name}}</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="select_list" >
+                                <div class="select_list_box">
+                                    <a v-for="item in cityList" class="item" href="javascript:" v-bind:data-aid="item.id" data-atype="2" v-on:click="selectAddr($event)" :key="item.id">
+                                        <span>{{item.name}}</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="select_list" >
+                                <div class="select_list_box">
+                                    <a
+                                        href="javascript:"
+                                        class="item"
+
+                                        v-for="item in districtList"
+                                        v-bind:data-aid="item.id"
+                                        :key="item.id"
+                                        data-atype="3"
+                                        v-on:click="selectAddr($event)">
+                                        <span>{{item.name}}</span>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </transition>
+        </div>
+        <!--地区选择器 end -->
+    </div>
+</body>
+
+</html>
