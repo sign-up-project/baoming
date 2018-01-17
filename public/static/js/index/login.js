@@ -52,8 +52,7 @@ window.onload = function () {
                     if(res.data.status == 1){
                         layer.open({
                             content: msg,
-                            skin: 'msg',
-                            time: 2,
+                            shadeClose: false,
                             success: function(){
                                 setTimeout(function () {
                                     window.open('/index.php/index/index/index','_self');

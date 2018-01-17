@@ -32,7 +32,7 @@
                     <form action="" method="post" class="" id="reg_form" v-on:submit.prevent="submitForm">
                         <label class="f_label">
                             <span class="l_t"><span class="red"> * </span> 用户名</span>
-                            <input type="text" name="account" placeholder="用户名" class="f_username" v-on:blur="accountBlur" v-model="account.account"/>
+                            <input type="text" name="account" placeholder="用户名" class="f_username" v-on:blur="accountBlur($event)" v-model="account.account"/>
                         </label>
 
                         <label class="f_label">
@@ -47,7 +47,7 @@
 
                         <label class="f_label">
                             <span class="l_t">手机号码</span>
-                            <input type="number" name="phone" placeholder="手机号码" class="f_pwd" v-model="account.phone" />
+                            <input type="number" name="phone" placeholder="手机号码" class="f_pwd" v-on:blur="accountBlur($event)" v-model="account.phone" />
                         </label>
                         <br>
                         <button type="submit" class="sub_btn">注 册</button>

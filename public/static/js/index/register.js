@@ -13,7 +13,7 @@ window.onload = function () {
                 password: '',
                 password2: '',
                 phone: '',
-            }
+            },
         },
         created: function () {
             //获取浏览器的宽高；
@@ -22,7 +22,10 @@ window.onload = function () {
         },
         methods: {
             submitForm: function() {
+                var _self = this;
+
                 var account = this.account;
+
                 if(account.account == ''|| account.account  == null){
                     layer.open({
                         content: '用户名不能为空！'
@@ -83,17 +86,21 @@ window.onload = function () {
                 var obj = {
                     account: account.account,
                     password: md5(account.password),
+                    phone: account.phone
                 };
-                if(account.phone){
-                    obj.phone = account.phone;
-                }
 
                 axios.post("/index.php/index/Login/regAdd",obj).then(function (res) {
-                    console.log(res);
+                    //console.log(res);
                     if(res.data.status == 1){
                         layer.open({
                             content: res.data.msg
-                            ,time: 2
+                            ,time: 1
+                            ,success: function() {
+                                setTimeout(function() {
+                                    window.open('/index.php/index/login/login','_self');
+                                }, 1000);
+
+                            }
                         });
                     }else {
                         layer.open({
@@ -106,16 +113,25 @@ window.onload = function () {
                 })
 
             },
-            // 用户名输入框 失焦事件
-            accountBlur: function() {
-                var obj = {
-                    account: this.account.account
+            // 用户名、shoujihao 输入框 失焦事件
+            accountBlur: function(event) {
+                var that = this;
+                var elmObj = event.currentTarget;
+                if(elmObj.value == ''){
+                    return;
+                }
+                var obj = {};
+                if(elmObj.name == 'account'){
+                    obj.flag = 1;
+                    obj.account = this.account.account;
+                }else if(elmObj.name == 'phone'){
+                    obj.flag = 2;
+                    obj.phone = this.account.phone;
                 }
                 axios.post("/index.php/index/Login/checkRepeat",obj).then(function (res) {
-                    console.log(res);
-                    if(res.data == 0){
+                    if(res.data.status == 0){
                         layer.open({
-                            content: '用户名已被注册！请重新输入'
+                            content: res.data.msg
                             ,btn: '我知道了'
                         });
                     }

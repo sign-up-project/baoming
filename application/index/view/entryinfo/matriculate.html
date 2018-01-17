@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>报名信息列表</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="__STATIC__/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="__STATIC__/layer_mobile/need/layer.css">
+    <link rel="stylesheet" href="__CSS__/index/entryInfoList.css">
+    <link rel="stylesheet" href="__CSS__/index/matriculate.css">
+
+    <script type="text/javascript" src="__JS__/common/vue.js"></script>
+    <script type="text/javascript" src="__JS__/common/axios.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/layer_mobile/layer.js"></script>
+    <script type="text/javascript" src="__JS__/index/matriculate.js"></script>
+</head>
+<body>
+    <div class="" id="matriculate" v-cloak>
+        <!--模糊层-->
+        <div class="blur"></div>
+        <!--主要内容 start-->
+        <div class="main">
+            <div class="list_empty" v-if="list.length <= 0">
+                <p class="tip">暂无录取信息</p>
+                <p class="a_btn">
+                    <a href="{:url('index/entryform/article')}">去报名</a>
+                    <a href="{:url('index/index/index')}">个人中心</a>
+                </p>
+            </div>
+            <table v-else>
+                <thead>
+                    <tr>
+                        <th style="width: 23%">姓名</th>
+                        <th style="min-width:28px;width: 8%">性别</th>
+                        <th style="">身份证</th>
+                        <th style="min-width:56px;width: 21%">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="item,index in computedList" :key="item.id">
+                        <td v-text="item.username"></td>
+                        <td v-text="item.sex"></td>
+                        <td v-text="item.idcar"></td>
+                        <td v-bind:data-index="index" v-on:click="info($event)"><a href="javascript:">查看详情</a></td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <!--主要内容 end-->
+    </div>
+</body>
+</html>

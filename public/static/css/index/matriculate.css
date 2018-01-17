@@ -1,0 +1,37 @@
+
+.layui-m-layermain .en_title{
+    padding-top: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+}
+.layui-m-layermain table{
+    width: 80%;
+    height: auto;
+    margin: 20px auto;
+}
+.layui-m-layermain table td{
+    border: 1px solid #ddd;
+    border-collapse: collapse;
+}
+.layui-m-layermain tr{
+    height: 48px;
+}
+.layui-m-layermain tr:nth-child(even){
+    background-color: #eee;
+}
+.layui-m-layermain tr td:last-child {
+    font-size: inherit;
+    color: inherit;
+    padding-left: 5px;
+}
+.layui-m-layermain tr td:first-child{
+    text-align: left;
+    min-width: 58px;
+    padding-left: 5px;
+}
+.layui-m-layermain .layui-m-layerbtn {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}

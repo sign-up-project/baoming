@@ -15,7 +15,7 @@ window.onload = function() {
                 sex: '', //性别
                 idcar: '', //身份证号
                 school: '', //学校
-                major: '', //课程
+                major: 0, //课程
                 brtel: '', //本人电话
                 telone: '', //家长电话  1
                 teltwo: '', //家长电话 2
@@ -23,14 +23,16 @@ window.onload = function() {
                 city: '', //市
                 district: '', //区|县
                 address: '', //详细地址
-                image: '',
+
             },
-            cost: 100.00,
+            major: '',
+            cost: '0.00',
             previewImg: '', //上传图片预览地址；
             addressList: {},
             provinceList: [],
             cityList: [],
             districtList: [],
+            subject: [],//科目；
             direction: 'r',//移动方向 'r' 将要向左移动，'l' 将要向右移动
         },
         created: function() {
@@ -38,7 +40,7 @@ window.onload = function() {
             //获取浏览器的宽高；
             this.width = window.innerWidth;
             this.height = window.innerHeight;
-            //获取地址选择器数据；
+            //获取地址选择器数据,及科目数据；
             axios.get("/index.php/index/entryform/getAddressList").then(function(res) {
                 //console.log(res);
                 if (res.status == 200) {
@@ -48,27 +50,44 @@ window.onload = function() {
                         cityList: data.city,
                         districtList: data.district,
                     }
-                    that.provinceList = data.province
+                    that.provinceList = data.province;
+                    that.subject = data.subject;
                 }
 
             }).catch(function(err) {
                 console.log(err);
             })
         },
+        watch: {
+            // 如果  发生改变，这个函数就会运行
+            major: function (newQuestion, oldQuestion) {
+                this.getCost();
+            }
+        },
         methods: {
+            getCost: function() {
+                var _self = this;
+                var id = this.major;
+                this.info.major = id;
+                this.subject.forEach(function (v) {
+                    if(v.id == id){
+                        _self.cost = v.submoney;
+                    }
+                })
+            },
             //表单提交
             submitForm: function(event) {
 
-                let { username, sex, idcar, school,  major, brtel, telone, teltwo, province, city, district, address, image } = this.info;
-                //console.log(username, sex, idcar, school,  major, brtel, telone, teltwo, province, city, district, address, image);
+                let { username, sex, idcar, school,  major, brtel, telone, teltwo, province, city, district, address } = this.info;
 
                 if(username == '' || sex == ''  || idcar == '' || school == ''|| major == ''||
-                telone == ''|| province == ''|| city == ''|| district == '')
+                brtel == ''|| province == ''|| city == ''|| district == '')
                 {
                     layer.open({
                         content:"表单带<span class='red'> * </span>号的内容不能为空"
                         ,btn:'我知道了'
                     })
+                    return ;
                 }
                 let idcar_regExp = /^\d{6}(18|19|20)?\d{2}(0[1-9]|1[12])(0[1-9]|[12]\d|3[01])\d{3}(\d|X|x)$/; //身份证正则校验；
                 if(!idcar_regExp.test(idcar)){
@@ -79,14 +98,14 @@ window.onload = function() {
                     return ;
                 }
                 let phone_regExp = /^1[3|4|5|7|8][0-9]{9}$/;    //手机号码正则校验
-                if(brtel != '' && !phone_regExp.test(brtel)){
+                if(!phone_regExp.test(brtel)){
                     layer.open({
-                        content: '本人手机号不符合规范<br>请重新输入！'
+                        content: '联系电话不符合规范<br>请重新输入！'
                         ,btn: '我知道了'
                     });
                     return ;
                 }
-                if(!phone_regExp.test(telone)){
+                if(telone != '' && !phone_regExp.test(telone)){
                     layer.open({
                         content: '家长电话1不符合规范<br>请重新输入！'
                         ,btn: '我知道了'
@@ -104,13 +123,16 @@ window.onload = function() {
                 for(let key in this.info){
                     formData.append(key,this.info[key]);
                 }
-                let config = {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
-                }
-                axios.post("/index.php/index/entryform/submit", formData, config).then(function (res) {
+
+                axios.post("/index.php/index/entryform/submit", formData).then(function (res) {
                     console.log(res);
+                    if(res.data.status == 1){
+                        layer.open({
+                            type: 2,
+                            content: '信息提交成功，即将调起支付页面...',
+                            shadeClose: false
+                        })
+                    }
 
                 }).catch(function (err) {
                     console.log(err);
