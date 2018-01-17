@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>密码重置</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="__STATIC__/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="__STATIC__/layer_mobile/need/layer.css">
+    <link rel="stylesheet" href="__CSS__/index/pwdReset.css">
+
+
+    <script type="text/javascript" src="__JS__/common/md5.min.js"></script>
+    <script type="text/javascript" src="__JS__/common/vue.js"></script>
+    <script type="text/javascript" src="__JS__/common/axios.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/layer_mobile/layer.js"></script>
+    <script type="text/javascript" src="__JS__/index/pwdReset.js"></script>
+</head>
+<body>
+    <div id="reset_page" class="">
+        <!--模糊层-->
+        <div class="blur"></div>
+        <!--主要内容 start-->
+        <div class="main">
+            <div class="container" >
+                <div class="row">
+                    <div class="form_wrap col-xs-12 col-md-6 col-md-offset-3">
+
+                        <div class="search_wrap">
+                            <input type="text" name="val" class="ipt_search" v-model="val" placeholder="输入注册时的用户名或手机号" />
+                            <button class="btn_search" v-on:click="checkAccount"> 提 交 </button>
+                        </div>
+                        <div class="reset_wrap" v-if="showResetBox">
+                            <p class="title"> 密码修改</p>
+                            <input type="password" name="pwd" class="ipt_reset" v-model="password" placeholder="输入新密码" />
+                            <input type="password" name="pwd2" class="ipt_reset" v-model="password2" placeholder="确认密码" />
+                            <button class="btn_sub" v-on:click="clickToReset"> 确 定 修 改</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--主要内容 end-->
+    </div>
+</body>
+</html>

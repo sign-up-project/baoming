@@ -1,0 +1,76 @@
+[v-cloak] {
+    display: none;
+}
+#article{
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+.blur,
+.main,
+.content
+{
+    width: 100%;
+    height: 100%;
+}
+.blur{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9;
+}
+
+.main{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 11;
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+}
+
+.article_title {
+    height: 40px;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 40px;
+    text-align: center;
+    margin: 20px 0 8px;
+}
+
+.article_conn{
+    flex: 1;
+    padding: 0 15px;
+}
+
+.footer {
+    width: 100%;
+    height: 130px;
+    box-sizing: border-box;
+    padding: 10px 20px;
+}
+.illustrator {
+    font-size: 12px;
+}
+.checkbox {
+    float: left;
+}
+.agree_text {
+    font-size: 13px;
+    margin-left: 8px;
+}
+.sure_btn {
+    display: block;
+    width: 100%;
+    color: #ffffff;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 10px 0;
+    margin-top: 10px;
+    border-radius: 25px;
+    background-color: #018FD0;
+}

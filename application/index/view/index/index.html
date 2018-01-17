@@ -46,17 +46,17 @@
              <div class="row">
                  <div class="col-xs-12 col-md-6 col-md-offset-3">
                     <ul class="list">
-                        <li class="list_item">
+                        <li class="list_item" v-on:click="entryinfolist">
                             <img src="__STATIC__/images/info.png" alt="" class="icon">
                             <span class="t_name">报名信息</span>
                             <img src="__STATIC__/images/more.png" alt="" class="more">
                         </li>
-                        <li class="list_item">
+                        <li class="list_item" v-on:click="scorepage">
                             <img src="__STATIC__/images/cj.png" alt="" class="icon">
                             <span class="t_name">成绩</span>
                             <img src="__STATIC__/images/more.png" alt="" class="more">
                         </li>
-                        <li class="list_item">
+                        <li class="list_item" v-on:click="matriculate">
                             <img src="__STATIC__/images/info_result.png" alt="" class="icon">
                             <span class="t_name">录取信息</span>
                             <img src="__STATIC__/images/more.png" alt="" class="more">
@@ -67,7 +67,7 @@
                             <img src="__STATIC__/images/more.png" alt="" class="more">
                         </li>
                     </ul>
-                     <a class="sign_btn" href="{:url('index/entryform/entryform')}">立即报名</a>
+                     <a class="sign_btn" href="{:url('index/entryform/article')}">立即报名</a>
                  </div>
              </div>
              <!--个人信息 主要内容列表 end-->

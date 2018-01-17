@@ -41,5 +41,17 @@
     color: #999;
     background-color: #eee;
 }
+.reg_btn .l{
+    float: left;
+}
 
-
+/*提示内容*/
+.tip_box{
+    padding: 6px 10px;
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, .4);
+    font-size: 12px;
+}
+/*.t_title {*/
+    /*font-size: 13px;*/
+/*}*/

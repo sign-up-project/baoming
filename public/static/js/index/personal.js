@@ -34,10 +34,21 @@ window.onload = function() {
             }
         },
         methods: {
+            //报名信息列表页；
+            entryinfolist: function() {
+              location.href = '/index.php/index/Entryinfo/entryInfoList';
+            },
+            //分数 页面
+            scorepage: function () {
+                location.href = '/index.php/index/Entryinfo/score';
+            },
+            //录取信息页面
+            matriculate: function () {
+                location.href = '/index.php/index/Entryinfo/matriculate';
+            },
             //退出登录；
             loginOut: function() {
                 axios.get('/index.php/index/index/loginOut').then(function (res) {
-                    console.log(res);
                     if(res.data.status == 1){
                         layer.open({
                             content: res.data.msg,
