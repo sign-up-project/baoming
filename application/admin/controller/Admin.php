@@ -180,7 +180,9 @@ class Admin extends controller
 				 WHEN '5' THEN '教育-音乐舞蹈'
                  WHEN '6' THEN '教育-播音主持'
 				 WHEN '7' THEN '教育-休闲体育' END newmajor,examnum,examtime,examaddress,examaddnum from userinfo
-                 where district='$p' AND where paystatus= 1");
+
+                 where district='$p' AND  paystatus= 1");
+
         }else{
             $list=Db::query("SELECT username,CASE sex
 				 WHEN '0' THEN '女'
@@ -191,7 +193,9 @@ class Admin extends controller
                  WHEN '4' THEN '教育-美术'
 				 WHEN '5' THEN '教育-音乐舞蹈'
                  WHEN '6' THEN '教育-播音主持'
-				 WHEN '7' THEN '教育-休闲体育' END newmajor,examnum,examtime,examaddress,examaddnum  from userinfo where paystatus=1");
+
+				 WHEN '7' THEN '教育-休闲体育' END newmajor,examnum,examtime,examaddress,examaddnum  from userinfo where paystatus= '1'");
+
         }
         $excel2007=false;
         $indexKey=array('username','newsex','idcar','school','address','brtel','telone','teltwo','newmajor','examnum','examtime','examaddress','examaddnum');
