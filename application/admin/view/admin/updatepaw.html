@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>后台管理</title>
+    <!-- Bootstrap Styles-->
+    <link rel="stylesheet" type="text/css" href="__STATIC__/bootstrap/css/bootstrap.css">
+    <!-- FontAwesome Styles-->
+    <link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
+    <!-- Morris Chart Styles-->
+    <link href="__STATIC__/assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
+    <!-- Custom Styles-->
+    <link href="__STATIC__/assets/css/custom-styles.css" rel="stylesheet" />
+
+</head>
+
+<body>
+<div id="wrapper">
+    <nav class="navbar navbar-default top-navbar" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html"><i class="fa fa-comments"></i> <strong>后台管理 </strong></a>
+        </div>
+
+        <ul class="nav navbar-top-links navbar-right">
+            <!-- /.dropdown -->
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                    <i class="fa fa-user fa-fw"></i><span>admin</span> <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-user">
+                    <li><a href="#"><i class="fa fa-gear fa-fw"></i> 修改密码</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li><a href="{:url('admin/register')}"><i class="fa fa-sign-out fa-fw"></i> 退出登录</a>
+                    </li>
+                </ul>
+                <!-- /.dropdown-user -->
+            </li>
+            <!-- /.dropdown -->
+        </ul>
+    </nav>
+    <!--/. NAV TOP  -->
+    <nav class="navbar-default navbar-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav" id="main-menu">
+                <li>
+                    <a href="index.html"><i class="fa fa-edit"></i> 表单</a>
+                </li>
+                <li>
+                    <a href="userdata.html"><i class="fa fa-desktop"></i> 用户数据</a>
+                </li>
+                <li>
+                    <a href="setting.html"><i class="fa fa-bar-chart-o"></i> 设置总分线</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-- /. NAV SIDE  -->
+    <div id="page-wrapper">
+        <!--具体内容-->
+       <div style="margin: 1% 0 0 5%">
+           <form action=" {:url('Admin/repwd')}" method="post">
+               <label style="color: red">*</label>
+                    <input type="password" name="user" id="user">
+               <label style="color: darkgray">请输入账号</label><br>
+               <label style="color: red;margin-top: 10px">*</label>
+                    <input type="password" name="oldpwd" id="oldpwd">
+               <label style="color: darkgray">请输入旧密码</label><br>
+               <label style="color: red;margin-top: 10px">*</label>
+                    <input type="password" name="newpwd1" id="newpwd1">
+               <label style="color: darkgray">请输入新密码</label><br>
+               <label style="color: red;margin-top: 10px">*</label>
+                    <input type="password" name="newpwd" id="newpwd">
+               <label style="color: darkgray">确认新密码</label><br>
+               <input type="submit" id="sub" style="display: none">
+           </form>
+           <input type="button" onclick="test()" value="确定" style="background-color: dodgerblue;
+                border: 0;color: white;height: 40px;width: 100px;margin: 10px 0 0 20px" >
+       </div>
+    </div>
+    <!-- /. PAGE WRAPPER  -->
+</div>
+<script src="__STATIC__/js/jq.js"></script>
+<script src="__STATIC__/bootstrap/js/bootstrap.min.js"></script>
+<script src="__STATIC__/assets/js/jquery.metisMenu.js"></script>
+<!-- Morris Chart Js -->
+<script src="__STATIC__/assets/js/morris/raphael-2.1.0.min.js"></script>
+<script src="__STATIC__/assets/js/morris/morris.js"></script>
+<script src="__STATIC__/assets/js/easypiechart.js"></script>
+<script src="__STATIC__/assets/js/easypiechart-data.js"></script>
+<!-- Custom Js -->
+<script src="__STATIC__/assets/js/custom-scripts.js"></script>
+<script type="text/javascript">
+    function test(){
+        var user=$('#user').val();
+        var old=$('#oldpwd').val();
+        var newpwd1=$('#newpwd1').val();
+        var newpwd=$('#newpwd').val();
+        if(user !="" && old != "" && newpwd1 !="" && newpwd !="" ) {
+            if (newpwd1 == newpwd) {
+                $('#sub').click();
+            } else {
+                alert('两次输入密码不对');
+            }
+        }else{
+            alert('必填项不能为空');
+        }
+    }
+</script>
+
+</body>
+
+</html>

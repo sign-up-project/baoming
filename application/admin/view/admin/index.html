@@ -1,0 +1,254 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>后台管理</title>
+    <!-- Bootstrap Styles-->
+    <link rel="stylesheet" type="text/css" href="__STATIC__/bootstrap/css/bootstrap.css">
+    <!-- FontAwesome Styles-->
+    <link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
+    <!-- Morris Chart Styles-->
+    <link href="__STATIC__/assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
+    <!-- Custom Styles-->
+    <link href="__STATIC__/assets/css/custom-styles.css" rel="stylesheet" />
+    <script language="javascript" src="__STATIC__/js/PCASClass.js"></script>
+</head>
+
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-default top-navbar" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html"><i class="fa fa-comments"></i> <strong>后台管理 </strong></a>
+            </div>
+
+            <ul class="nav navbar-top-links navbar-right">
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                        <i class="fa fa-user fa-fw"></i><span>admin</span> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="updatepaw.html"><i class="fa fa-gear fa-fw"></i> 修改密码</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="{:url('admin/register')}"><i class="fa fa-sign-out fa-fw"></i> 退出登录</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+        </nav>
+        <!--/. NAV TOP  -->
+        <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+                    <li>
+                        <a class="active-menu" href="index.html"><i class="fa fa-edit"></i> 用户数据</a>
+                    </li>
+                    <li>
+                        <a href="userdata.html"><i class="fa fa-desktop"></i> 科目管理</a>
+                    </li>
+					<li>
+                        <a href="setting.html"><i class="fa fa-bar-chart-o"></i> 设置总分线</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper">
+            <div style="margin-bottom: 10px">
+                <!--第一个select 是用来选择省份的，如果默认为福建省可不开启-->
+                <form action="{:url('admin/dizhi')}" method="post">
+                    <select name="province" style="display: none"></select>
+                    <select name="city" id="city"></select>
+                    <select name="area" id="area"></select>
+                    <input type="submit" id="submit"  value="查询">
+                    <button> <a href="{:url('admin/clear')}" style="color:black">清除结果</a></button>
+                    <a href="{:url('admin/dayin')}">打印</a>
+                </form>
+            </div>
+            <!--具体内容-->
+           <table class="table table-hover table-striped">
+                    <tr>
+                        <td>学校名称</td>
+                        <td>头像</td>
+                        <td>考生名</td>
+                        <td>考生号</td>
+                        <td>性别</td>
+                        <td>身份证</td>
+                        <td>报考专业</td>
+                        <td>省市区</td>
+                        <td>家庭地址</td>
+                        <td>联系方式</td>
+                        <td>紧急联系方式</td>
+                        <td>考试状态</td>
+                        <td>考试分数</td>
+                        <td>面试状态</td>
+                        <td>考试时间</td>
+                        <td>考试地点</td>
+                        <td>考场号</td>
+                        <td>操作</td>
+                    </tr>
+               {volist name="user" id="res"}
+                   <tr>
+                       <td>{$res.school}</td>
+                       <td><img src="{$res.image}" alt="头像" width="100" height="100"></td>
+                       <td>{$res.username}</td>
+                       <td>{$res.examnum}</td>
+                       <td>{switch name="res.sex"}
+                           {case value="1"}男{/case}
+                           {case value="0"}女{/case}
+                           {/switch}</td>
+                       <td>{$res.idcar}</td>
+                       <td>{$res.subject}</td>
+                       <td>{$res.province}{$res.city}{$res.district}</td>
+                       <td>{$res.address}</td>
+                       <td>{$res.brtel}</td>
+                       <td>{$res.telone}<br>{$res.teltwo}</td>
+                       <td>{if condition="($res.examscore == 0)"}待考试
+                           {elseif condition="($res.examscore >0) AND ($res.examscore <$fs.through)"/}未通过
+                           {elseif condition="($res.examscore >=$fs.through)"/}待面试
+                           {/if}</td>
+                       <td><input style="width: 50px" type="number" id="blur{$res.id}" name="{$res.id}" onblur="bl(this)" value="{$res.examscore}"></td>
+                       <td>{switch name="res.interviewstatus"}
+                           {case value="0"}待面试{/case}
+                           {case value="1"}面试通过{/case}
+                           {case value="2"}面试未通过{/case}
+                           {/switch}</td>
+                       <td><input  type="date" id="b{$res.id}" name="{$res.id}" onblur="b(this)" value="{$res.examtime}"></td>
+                       <td><input style="width: 60px" type="text" id="bl{$res.id}" name="{$res.id}" onblur="blu(this)" value="{$res.examaddress}"></td>
+                       <td><input style="width: 60px"  type="text"  id="blu{$res.id}" name="{$res.id}" onblur="qwe(this)" value="{$res.examaddnum}"></td>
+                       <td>
+                           {switch name="res.interviewstatus"}
+                           {case value="0"}
+                               <input style="width: 58px" type="button" name="{$res.id},1" onclick="pas(this)" value="通过"><br>
+                               <input style="margin-top: 5px" type="button" name="{$res.id},2" onclick="pas(this)" value="未通过">
+                           {/case}
+                           {case value="1"}考试成功{/case}
+                           {case value="2"}考试失败{/case}
+                           {/switch}
+                       </td>
+                   </tr>
+                {/volist}
+           </table>
+            <div style="margin-left: 35%">{$user->render()}</div>
+        </div>
+        <!-- /. PAGE WRAPPER  -->
+    </div>
+    <!-- /. WRAPPER  -->
+    <!-- JS Scripts-->
+    <!-- jQuery Js -->
+    <script src="__STATIC__/js/jq.js"></script>
+    <!-- Bootstrap Js -->
+    <script src="__STATIC__/bootstrap/js/bootstrap.min.js"></script>
+    <!-- Metis Menu Js -->
+    <script src="__STATIC__/assets/js/jquery.metisMenu.js"></script>
+    <!-- Morris Chart Js -->
+    <script src="__STATIC__/assets/js/morris/raphael-2.1.0.min.js"></script>
+    <script src="__STATIC__/assets/js/morris/morris.js"></script>
+	<script src="__STATIC__/assets/js/easypiechart.js"></script>
+	<script src="__STATIC__/assets/js/easypiechart-data.js"></script>
+    <!-- Custom Js -->
+    <script src="__STATIC__/assets/js/custom-scripts.js"></script>
+    <script language="javascript" defer>
+        new PCAS("province","city","area","福建省","厦门市","海沧区");
+    </script>
+    <script type="text/javascript">
+        function bl(i) {
+            var a = i.name;
+            var b=document.getElementById('blur'+a).value;
+            $.ajax({
+                type: "POST",
+                url: "updascore",
+                data: {id: a,value:b},
+                success: function (data) {
+                   if(data == 1){
+                       location.reload();
+                   }else{
+                       alert("录入失败，请联系开发人员");
+                   }
+                }
+            })
+        }
+        function b(i) {
+            var a = i.name;
+            var c=document.getElementById('b'+a).value;
+            $.ajax({
+                type: "POST",
+                url: "updatime",
+                data: {id: a,value:c},
+                success: function (data) {
+                    if(data == 1){
+                        location.reload();
+                    }else{
+                        alert("录入失败，请联系开发人员");
+                    }
+                }
+            })
+        }
+        function blu(i) {
+            var a = i.name;
+            var d=document.getElementById('bl'+a).value;
+            $.ajax({
+                type: "POST",
+                url: "updaadd",
+                data: {id: a,value:d},
+                success: function (data) {
+                    if(data == 1){
+                        location.reload();
+                    }else{
+                        alert("录入失败，请联系开发人员");
+                    }
+                }
+            })
+        }
+        function qwe(i) {
+            var a = i.name;
+            var e=document.getElementById('blu'+a).value;
+            $.ajax({
+                type: "POST",
+                url: "updanum",
+                data: {id: a,value:e},
+                success: function (data) {
+                    if(data == 1){
+                        location.reload();
+                    }else{
+                        alert("录入失败，请联系开发人员");
+                    }
+                }
+            })
+        }
+        function pas(i){
+            var na= i.name;
+            $.ajax({
+                type: "POST",
+                url: "updainter",
+                data: {id:na},
+                success: function (data) {
+                    if(data == 1){
+                        alert("面试通过");
+                        location.reload();
+                    }else if(data == 2){
+                        alert("面试未通过");
+                        location.reload();
+                    }
+                    else{
+                        alert("录入失败，请联系开发人员");
+                    }
+                }
+            })
+        }
+    </script>
+
+</body>
+
+</html>
