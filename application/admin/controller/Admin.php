@@ -91,7 +91,7 @@ class Admin extends controller
                     ->join('userinfo i', 'u.id = i.user_id')
                     ->join('subject s','i.major = s.id')
                     ->field('i.id,i.image,i.school,i.interviewstatus,i.username,i.examnum,i.sex,i.idcar,s.subject,i.province,i.city,i.district,i.address,i.brtel,i.telone,i.teltwo,i.examscore,i.examtime,i.examaddress,i.examaddnum')
-                    ->where("district='$p' AND paystatus ='已支付'")
+                    ->where("district='$p' AND paystatus = 1")
                     ->paginate(6);
                 $fs=Db::name('through-line')->find();
                 $this->assign('user', $res);
@@ -102,7 +102,7 @@ class Admin extends controller
                     ->join('userinfo i', 'u.id = i.user_id')
                     ->join('subject s','i.major = s.id')
                     ->field('i.id,i.image,i.school,i.interviewstatus,i.username,i.examnum,i.sex,i.idcar,s.subject,i.province,i.city,i.district,i.address,i.brtel,i.telone,i.teltwo,i.examscore,i.examtime,i.examaddress,i.examaddnum')
-                    ->where("paystatus ='已支付'")
+                    ->where("paystatus = 1")
                     ->paginate(6);
                 $fs=Db::name('through-line')->find();
                 $this->assign('user', $res);
@@ -180,7 +180,7 @@ class Admin extends controller
 				 WHEN '5' THEN '教育-音乐舞蹈'
                  WHEN '6' THEN '教育-播音主持'
 				 WHEN '7' THEN '教育-休闲体育' END newmajor,examnum,examtime,examaddress,examaddnum from userinfo
-                 where district='$p' AND where paystatus='已支付'");
+                 where district='$p' AND  paystatus= 1");
         }else{
             $list=Db::query("SELECT username,CASE sex
 				 WHEN '0' THEN '女'
@@ -191,7 +191,7 @@ class Admin extends controller
                  WHEN '4' THEN '教育-美术'
 				 WHEN '5' THEN '教育-音乐舞蹈'
                  WHEN '6' THEN '教育-播音主持'
-				 WHEN '7' THEN '教育-休闲体育' END newmajor,examnum,examtime,examaddress,examaddnum  from userinfo where paystatus='已支付'");
+				 WHEN '7' THEN '教育-休闲体育' END newmajor,examnum,examtime,examaddress,examaddnum  from userinfo where paystatus= '1'");
         }
         $excel2007=false;
         $indexKey=array('username','newsex','idcar','school','address','brtel','telone','teltwo','newmajor','examnum','examtime','examaddress','examaddnum');
