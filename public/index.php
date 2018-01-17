@@ -13,5 +13,6 @@ header("Content-type: text/html; charset=utf-8");
 
 // 定义应用目录
 define('APP_PATH', __DIR__ . '/../application/');
+//define('EXTEND_PATH','/../extend/');
 // 加载框架引导文件
 require __DIR__ . '/../thinkphp/start.php';
