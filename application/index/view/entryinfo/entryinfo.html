@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>报名详情</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="__STATIC__/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="__STATIC__/layer_mobile/need/layer.css">
+    <link rel="stylesheet" href="__CSS__/index/entryInfo.css">
+
+    <script type="text/javascript" src="__JS__/common/vue.js"></script>
+    <script type="text/javascript" src="__JS__/common/axios.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/layer_mobile/layer.js"></script>
+    <script type="text/javascript" src="__JS__/index/entryInfo.js"></script>
+
+</head>
+<body>
+<div class="" id="entryinfo">
+    <!--模糊层-->
+    <div class="blur"></div>
+    <!--主要内容 start-->
+    <div class="main">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-md-6 col-md-offset-3">
+                    <p class="en_title">报名信息</p>
+                    <table v-cloak>
+                        <tr>
+                            <td>姓名</td>
+                            <td>{{detail.username}}</td>
+                        </tr>
+                        <tr>
+                            <td>图片</td>
+                            <td >
+                                <div class="head_img">
+                                    <img v-bind:src="detail.image" alt="" v-if="detail.image != ''">
+                                    <a href="javascript:" v-bind:data-id="detail.id" v-on:click="toUploadImg($event)" v-else>上传照片</a>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>性别</td>
+                            <td>{{detail.sex}}</td>
+                        </tr>
+                        <tr>
+                            <td>身份证号</td>
+                            <td>{{detail.idcar}}</td>
+                        </tr>
+                        <tr>
+                            <td>学校</td>
+                            <td>{{detail.school}}</td>
+                        </tr>
+                        <tr>
+                            <td>报考科目</td>
+                            <td>{{detail.major}}</td>
+                        </tr>
+                        <tr>
+                            <td>现居住地</td>
+                            <td>
+                                <span> {{detail.province}} </span>
+                                <span> {{detail.city}} </span>
+                                <span> {{detail.district}} </span><br>
+                                <span> {{detail.address}} </span>
+                            </td>
+                        </tr>
+                        <tr v-if="detail.brtel">
+                            <td>联系电话</td>
+                            <td>{{detail.brtel}}</td>
+                        </tr>
+                        <tr v-if="detail.telone">
+                            <td>家长电话1</td>
+                            <td>{{detail.telone}}</td>
+                        </tr>
+                        <tr v-if="detail.teltwo">
+                            <td>家长电话2</td>
+                            <td>{{detail.teltwo}}</td>
+                        </tr>
+                        <tr>
+                            <td>报名状态</td>
+                            <td>{{detail.paystatus}}</td>
+                        </tr>
+                        <tr>
+                            <td>报名时间</td>
+                            <td>{{detail.addtime}}</td>
+                        </tr>
+
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--主要内容 end-->
+</div>
+</body>
+</html>

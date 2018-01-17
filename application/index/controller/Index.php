@@ -1,22 +1,34 @@
 <?php
 namespace app\index\controller;
 
-use think\Controller;
+use app\index\common\Base;
 use think\Db;
-use think\View;
-use think\Env;
-class Index
+use think\Session;
+class Index extendS Base
 {
+    //首页(用户个人中心)
     public function index()
     {
-        dump($_ENV);
+        return view();
     }
-    public function login()
+    //个人中心用户数据；
+    public function getUserinfo()
     {
-        $view = new View();
-        $data = Db::name('user')->select();
-//        $view -> data = json_encode($data);
-        $view -> assign('data',json_encode($data));
-        return $view -> fetch();
+        $login_info = Session::get('index_login_status');
+        $uid = $login_info['user_id'];
+        $res = Db::name('user') -> where(['id'=>$uid]) -> find();
+        if(empty($res)){
+            return json_encode(array('status'=>0 ,'msg'=>'网络繁忙'));
+        }
+        return json_encode(array('status'=>1,'data'=>$res,'msg'=>''));
     }
+    //退出登录
+    public function loginOut() {
+        if(Session::has('index_login_status')){
+            Session::delete('index_login_status');
+            return json_encode(array('status'=>1,'msg'=>'退出登录成功'));
+        }
+        return json_encode(array('status'=>1,'msg'=>'退出登录成功'));
+    }
+
 }

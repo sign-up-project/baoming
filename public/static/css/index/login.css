@@ -1,0 +1,57 @@
+/*登录页面样式*/
+.form_page {
+    color: #ffffff;
+    font:600 16px/18px 'Open Sans',sans-serif;
+}
+.blur {
+    background: #eeeeee url('../../images/login_bg.jpg') center/cover fixed;
+    -webkit-filter: blur(6px);
+    -moz-filter: blur(6px);
+    -o-filter: blur(6px);
+    -ms-filter: blur(6px);
+    filter: blur(6px);
+}
+#login_form input {
+
+    font-size: 16px;
+    text-align: center;
+    margin: 5px 0;
+    background-color: rgba(255, 255, 255, .4);
+    color: #000;
+}
+#login_form input::-webkit-input-placeholder{
+    color: #fff;
+    font-size: 12px;
+    font-weight: 400;
+}
+#login_form input:-moz-placeholder{
+    color: #fff;
+    font-size: 12px;
+    font-weight: 400;
+}
+#login_form input:-ms-input-placeholder{
+    color: #fff;
+    font-size: 12px;
+    font-weight: 400;
+}
+#login_form .sub_btn {
+    background-color: #018FD0;
+}
+#login_form .sub_btn:active {
+    color: #999;
+    background-color: #eee;
+}
+.reg_btn .l{
+    float: left;
+}
+
+/*提示内容*/
+.tip_box{
+    padding: 6px 10px;
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, .4);
+    font-size: 12px;
+}
+/*.t_title {*/
+    /*font-size: 13px;*/
+/*}*/

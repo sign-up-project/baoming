@@ -1,0 +1,51 @@
+/*报名信息 列表页*/
+[v-cloak] {
+    display: none;
+}
+.main{
+    width: 100%;
+    height: auto;
+    padding: 15px 0;
+    font-size: 13px;
+}
+
+.en_title{
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px 0;
+}
+.main table{
+    width: 100%;
+    height: auto;
+}
+table td{
+    border: 1px solid #ddd;
+    border-collapse: collapse;
+}
+tr{
+    height: 48px;
+}
+tr:nth-child(even){
+    background-color: #eee;
+}
+tr td {
+    padding-left: 5px;
+}
+tr td:first-child{
+    text-align: left;
+    min-width: 58px;
+}
+
+.head_img{
+    height: 48px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.head_img img{
+    max-width: 100%;
+    max-height: 100%;
+    margin: 3px 0;
+}

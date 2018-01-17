@@ -3,9 +3,75 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>个人中心</title>
+    <link rel="stylesheet" href="__STATIC__/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="__STATIC__/layer_mobile/need/layer.css">
+    <link rel="stylesheet" href="__CSS__/common/style.css">
+    <link rel="stylesheet" href="__CSS__/index/personal.css">
+
+    <script type="text/javascript" src="__JS__/common/md5.min.js"></script>
+    <script type="text/javascript" src="__JS__/common/vue.js"></script>
+    <script type="text/javascript" src="__JS__/common/axios.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/layer_mobile/layer.js"></script>
+    <script type="text/javascript" src="__JS__/index/personal.js"></script>
 </head>
 <body>
-
+     <div id="personal_page" class="">
+         <!--个人信息 头部-->
+         <div class="header">
+             <div class="bg_wrap"></div>
+             <div class="h_main">
+                 <div class="head_pic">
+                     <img v-bind:src="headPic" alt="头像">
+                 </div>
+                 <div class="user_info">
+                     <p class="u u_name">
+                         <span class="icon"><img src="__STATIC__/images/icon-name.png" alt=""></span>
+                         <span class="txt name" v-text="username"></span>
+                     </p>
+                     <p class="u u_sex">
+                         <span class="icon">
+                             <img src="__STATIC__/images/woman.png" alt="" v-if="sex == 2">
+                             <img src="__STATIC__/images/man.png" alt="" v-else>
+                         </span>
+                         <span class="txt sex" v-text="sexTxt"></span>
+                     </p>
+                 </div>
+             </div>
+         </div>
+         <!--个人信息 头部 end-->
+         <div class="container-fluid">
+            <!--个人信息 主要内容列表-->
+             <div class="row">
+                 <div class="col-xs-12 col-md-6 col-md-offset-3">
+                    <ul class="list">
+                        <li class="list_item" v-on:click="entryinfolist">
+                            <img src="__STATIC__/images/info.png" alt="" class="icon">
+                            <span class="t_name">报名信息</span>
+                            <img src="__STATIC__/images/more.png" alt="" class="more">
+                        </li>
+                        <li class="list_item" v-on:click="scorepage">
+                            <img src="__STATIC__/images/cj.png" alt="" class="icon">
+                            <span class="t_name">成绩</span>
+                            <img src="__STATIC__/images/more.png" alt="" class="more">
+                        </li>
+                        <li class="list_item" v-on:click="matriculate">
+                            <img src="__STATIC__/images/info_result.png" alt="" class="icon">
+                            <span class="t_name">录取信息</span>
+                            <img src="__STATIC__/images/more.png" alt="" class="more">
+                        </li>
+                        <li class="list_item" v-on:click="loginOut">
+                            <img src="__STATIC__/images/exit.png" alt="" class="icon">
+                            <span class="t_name">退出登录</span>
+                            <img src="__STATIC__/images/more.png" alt="" class="more">
+                        </li>
+                    </ul>
+                     <a class="sign_btn" href="{:url('index/entryform/article')}">立即报名</a>
+                 </div>
+             </div>
+             <!--个人信息 主要内容列表 end-->
+         </div>
+     </div>
 </body>
 </html>

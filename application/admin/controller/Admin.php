@@ -180,7 +180,9 @@ class Admin extends controller
 				 WHEN '5' THEN '教育-音乐舞蹈'
                  WHEN '6' THEN '教育-播音主持'
 				 WHEN '7' THEN '教育-休闲体育' END newmajor,examnum,examtime,examaddress,examaddnum from userinfo
+
                  where district='$p' AND  paystatus= 1");
+
         }else{
             $list=Db::query("SELECT username,CASE sex
 				 WHEN '0' THEN '女'
@@ -191,7 +193,9 @@ class Admin extends controller
                  WHEN '4' THEN '教育-美术'
 				 WHEN '5' THEN '教育-音乐舞蹈'
                  WHEN '6' THEN '教育-播音主持'
+
 				 WHEN '7' THEN '教育-休闲体育' END newmajor,examnum,examtime,examaddress,examaddnum  from userinfo where paystatus= '1'");
+
         }
         $excel2007=false;
         $indexKey=array('username','newsex','idcar','school','address','brtel','telone','teltwo','newmajor','examnum','examtime','examaddress','examaddnum');
@@ -211,47 +215,7 @@ class Admin extends controller
             Loader::import('classes\PHPExcel\Writer\PHPExcel_Writer_Excel5',EXTEND_PATH);
             $objWriter = new \PHPExcel_Writer_Excel5($objPHPExcel);
             $filename = $filename.'.xls';
-        }
-//        //图片下载类
-//        Loader::import('classes\PHPExcel\Worksheet\PHPExcel_Worksheet_Drawing',EXTEND_PATH);
-//        $objDrawing = new \PHPExcel_Worksheet_Drawing();
-//
-//        /*填充表格内容*/
-//        $tableheader = array('姓名','性别','身份证号','就读学校','头像','家庭地址','本人电话','家长电话（1）','家长电话（2）','报考专业','准考证号','考试时间','考点名称','考场编号');
-//        $letter = array('A','B','C','D','E','F','G','H','I','J','K','L','M','N');
-//        for($i = 0;$i < count($tableheader);$i++) {
-//            $objPHPExcel->getActiveSheet()->setCellValue("$letter[$i]1","$tableheader[$i]");
-//        }
-//
-//        $objActSheet = $objPHPExcel->getActiveSheet();
-//        for ($i = 0;$i < count($list);$i++) {
-//            $j = $i + 2;
-//            /*设置表格宽度*/
-//            $objActSheet->getColumnDimension("$header_arr[$i]")->setWidth(20);
-//            /*设置表格高度*/
-//            $objPHPExcel->getActiveSheet()->getRowDimension($j)->setRowHeight(100);
-//            /*向每行单元格插入数据*/
-//            for ($row = 0;$row < count($list[$i]);$row++) {
-//                if ($row == (count($list[$i]) -7 )) {
-//                    /*实例化插入图片类*/
-//                    /*设置图片路径 切记：只能是本地图片*/
-//                    $objDrawing->setPath($list[$i]['image']);
-//                    /*设置图片高度*/
-//                    $objDrawing->setHeight(100);
-//                    /*设置图片要插入的单元格*/
-//                    $objDrawing->setCoordinates("$header_arr[$row]$j");
-//                    /*设置图片所在单元格的格式*/
-//                    $objDrawing->setOffsetX(80);
-//                    $objDrawing->setRotation(20);
-//                    $objDrawing->getShadow()->setVisible(true);
-//                    $objDrawing->getShadow()->setDirection(50);
-//                    $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
-//                    continue;
-//                }
-//
-//                $objPHPExcel->getActiveSheet()->setCellValue("$header_arr[$row]$j",$list[$i]['username']);
-//            }
-//        }
+        }    
         //接下来就是写数据到表格里面去
         $objActSheet = $objPHPExcel->getActiveSheet();
 //        array('姓名','性别','身份证号','就读学校','家庭地址','本人电话','家长电话（1）','家长电话（2）','报考专业','准考证号','考试时间','考点名称','考场编号');

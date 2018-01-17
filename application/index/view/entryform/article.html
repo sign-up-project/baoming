@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>阅读条款</title>
+
+    <link rel="stylesheet" href="__STATIC__/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="__STATIC__/layer_mobile/need/layer.css">
+    <link rel="stylesheet" href="__CSS__/index/article.css">
+
+    <script type="text/javascript" src="__JS__/common/md5.min.js"></script>
+    <script type="text/javascript" src="__JS__/common/vue.js"></script>
+    <script type="text/javascript" src="__JS__/common/axios.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/layer_mobile/layer.js"></script>
+    <script type="text/javascript" src="__JS__/index/article.js"></script>
+</head>
+<body>
+    <div id="article" class="form_page" v-bind:style="{width: width + 'px',height: height + 'px',}">
+        <!--模糊层-->
+        <div class="blur"></div>
+        <!--主要内容 start-->
+        <div class="main">
+
+            <div class="content" v-cloak>
+                <div class='header article_title'>
+                    <span> 特 别 说 明 </span>
+                </div>
+                <div class='article_conn'>
+
+                </div>
+                <div class='footer'>
+                    <span class='illustrator'>*本活动解释权在法律范围内归本公司所有</span>
+                    <div>
+                        <label >
+                            <input class='checkbox' type='checkbox' v-model="checked"/>
+                            <span class='agree_text'>我已阅读并知晓以上信息，同意此授权</span>
+                        </label>
+
+                    </div>
+                    <a class="sure_btn" href="javascript:" v-on:click="toEntryform">确 认 </a>
+                </div>
+            </div>
+
+        </div>
+        <!--主要内容 end-->
+    </div>
+
+</body>
+</html>
