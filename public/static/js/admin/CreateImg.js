@@ -27,9 +27,10 @@ class CreateImg {
 
         let src = this.canvasToImage(cvs);  //生成base64图片；
 
-          var img = document.createElement('img');
-          img.src = src;
-          document.body.appendChild(img);
+          /*var img = document.createElement('img');
+          *img.src = src;
+          *document.body.appendChild(img);
+          */
 
         typeof cb == "function" && cb(src);
 
