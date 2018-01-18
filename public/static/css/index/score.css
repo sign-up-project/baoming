@@ -1,0 +1,29 @@
+
+table {
+  border-top: 1px solid #aaa;
+  border-bottom: 1px solid #aaa;
+  margin: 10px 0;
+}
+table tr{
+  height: 39px;
+}
+.main table thead {
+  background-color: #ddd;
+  color: #000;
+}
+
+tbody tr:nth-child(odd){
+    background-color: #eee;
+}
+
+tbody tr td:last-child{
+  color: #f00;
+}
+
+
+tfoot tr td:last-child{
+  color: #777;
+}
+.blue{
+  color: #09BB07;
+}

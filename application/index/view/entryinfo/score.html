@@ -3,11 +3,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>报名信息列表</title>
+    <title>分数信息列表</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="stylesheet" href="__STATIC__/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="__STATIC__/layer_mobile/need/layer.css">
     <link rel="stylesheet" href="__CSS__/index/entryInfoList.css">
+    <link rel="stylesheet" href="__CSS__/index/score.css">
 
     <script type="text/javascript" src="__JS__/common/vue.js"></script>
     <script type="text/javascript" src="__JS__/common/axios.min.js"></script>
@@ -27,24 +28,36 @@
                     <a href="{:url('index/index/index')}">个人中心</a>
                 </p>
             </div>
-            <table v-else>
-                <thead>
-                    <tr>
-                        <th style="width: 23%">姓名</th>
-                        <th style="min-width:28px;width: 8%">性别</th>
-                        <th style="">身份证</th>
-                        <th style="min-width:36px;width: 21%">总数</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="item in computedList" :key="item.id">
-                        <td v-text="item.username"></td>
-                        <td v-text="item.sex"></td>
-                        <td v-text="item.idcar"></td>
-                        <td v-text="item.examscore"></td>
-                    </tr>
-                </tbody>
-            </table>
+
+            <div v-else>
+                <table v-for="item in list" :key="item.id">
+                    <thead>
+                        <tr>
+                            <th style="width: 23%">姓名</th>
+                            <th style="min-width:28px;width: 8%">性别</th>
+                            <th style="">身份证</th>
+                            <th style="min-width:36px;width: 21%">总分</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr >
+                            <td v-text="item.username"></td>
+                            <td v-text="item.sex"></td>
+                            <td v-text="item.idcar"></td>
+                            <td v-text="item.examscore" class='red'></td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="4">
+                                <span v-if='item.status == 1' class="blue">恭喜！考试通过，请耐心等待面试通知</span>
+                                <span v-else>很遗憾，考试未通过，请再接再厉！</span>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            
 
         </div>
         <!--主要内容 end-->

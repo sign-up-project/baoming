@@ -25,20 +25,7 @@ window.onload = function() {
                 console.log(err);
             })
         },
-        computed:{
-            //计算列表
-            computedList: function() {
-                var list = this.list;
-                list.forEach(function(val, index){
-                    list[index]['sex'] = val['sex'] == 1 ? '男' : (val['sex'] == 2 ? '女' : '未知');
-                    var arr = val['idcar'].split('')
-                        arr.splice(6, 8, '*', '*', '*');
-                    var str = arr.join('');
-                    list[index]['idcar'] = str;
-                });
-                return list;
-            }
-        }
+        
 
     })
 
