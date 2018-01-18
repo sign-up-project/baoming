@@ -9,11 +9,17 @@ window.onload = function() {
             detail: [],
         },
         created: function() {
-            var id = sessionStorage.getItem('userinfo_id');
-            console.log(id);
+            var index = layer.open({
+                type: 2,
+                content: '加载中...',
+                shadeClose: false
+            })
+            var id = sessionStorage.getItem('table_userinfo_id');
+            // console.log(id);
             //获取报名信息；
             axios.post('/index.php/index/entryinfo/getEntryinfo',{id: id}).then(function(res) {
-                console.log(res);
+                // console.log(res);
+                layer.close(index);
                 if(res.data.status == 1){
                     this.detail = res.data.data;
                 }else{

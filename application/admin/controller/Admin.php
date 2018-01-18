@@ -285,4 +285,87 @@ class Admin extends controller
         $up=Db::name('subject')->insert(['subject'=>$subject,'submoney'=>$submoney]);
         echo $up;
     }
+    //获取 考生信息(用来生成准考证)；
+    public function getDetailInfo(){
+        $id=input('post.id',0 , 'intval');
+        if(!$id) {
+            return json_encode(array('status'=>0,'msg'=>'服务器异常，请联系管理员'));
+        }
+        $res = Db::name('userinfo')
+        ->alias('u')
+        ->join('subject s','s.id = u.major') 
+        ->where(['u.id'=>$id])
+        ->field('u.username,u.image,u.school,u.idcar,u.examnum,u.examaddnum,u.examaddress,s.subject,u.examimg')
+        ->find();
+        if(!empty($res)){
+            $res['image'] = request() -> domain().$res['image'];
+            //如果已有准考证；
+            if($res['examimg']){
+                return json_encode(array('status'=>2,'msg'=>'准考证已生成','data'=>$res));
+            }
+            return json_encode(array('status'=>1,'msg'=>'OK','data'=>$res));
+        }
+        return json_encode(array('status'=>0,'msg'=>'网络繁忙，请稍后重试'));
+        
+    }
+    //生成并保存准考证；
+    public function base64imgsave(){
+        
+        $id = input('post.id',0 , 'intval');
+        $img = input('imgbase64');
+        
+        //文件夹日期
+        $ymd = date("Ymd");
+        
+        //图片路径地址	
+        // $basedir = 'uploads/base64/'.$ymd.'';
+        $basedir = 'uploads'.DS.'base64'.DS.$ymd.'';
+        $fullpath = $basedir;
+        if(!is_dir($fullpath)){
+            mkdir($fullpath,0777,true);
+        }
+        $types = empty($types)? array('jpg', 'gif', 'png', 'jpeg'):$types;
+        
+        $img = str_replace(array('_','-'), array('/','+'), $img);
+        
+        $b64img = substr($img, 0,100);
+        
+        if(preg_match('/^(data:\s*image\/(\w+);base64,)/', $b64img, $matches)){
+            
+            $type = $matches[2];
+            if(!in_array($type, $types)){
+                return array('status'=>1,'info'=>'图片格式不正确，只支持 jpg、gif、png、jpeg哦！','url'=>'');
+            }
+            $img = str_replace($matches[1], '', $img);
+            $img = base64_decode($img);
+            $photo = DS.md5(date('YmdHis').rand(1000, 9999)).'.'.$type;
+            file_put_contents($fullpath.$photo, $img);
+            
+
+            //存入数据库
+            $res = Db::name('userinfo') -> where(['id'=> $id]) -> update(['examimg'=>DS.$basedir.$photo]);
+            if($res !== false){
+                $ary['status'] = 1;
+                $ary['msg'] = '保存图片成功';
+                $ary['url'] = DS.$basedir.$photo;
+                return $ary;
+            }else{
+                $ary['status'] = 0;
+                $ary['msg'] = '图片保存失败';
+                $ary['url'] = DS.$basedir.$photo;
+                return $ary;
+            }
+            
+            
+            
+        
+        }
+        
+            $ary['status'] = 0;
+            $ary['msg'] = '请选择要上传的图片';
+            
+            return $ary;
+        
+    }
+
 }

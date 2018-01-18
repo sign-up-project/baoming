@@ -14,6 +14,7 @@
     <!-- Custom Styles-->
     <link href="__STATIC__/assets/css/custom-styles.css" rel="stylesheet" />
     <script language="javascript" src="__STATIC__/js/PCASClass.js"></script>
+    <script language="javascript" src="__STATIC__/js/admin/CreateImg.js"></script>
 </head>
 
 <body>
@@ -131,7 +132,8 @@
                            {switch name="res.interviewstatus"}
                            {case value="0"}
                                <input style="width: 58px" type="button" name="{$res.id},1" onclick="pas(this)" value="通过"><br>
-                               <input style="margin-top: 5px" type="button" name="{$res.id},2" onclick="pas(this)" value="未通过">
+                               <input style="margin-top: 5px" type="button" name="{$res.id},2" onclick="pas(this)" value="未通过"><br>
+                               <input style="margin-top: 5px" type="button" data-id='{$res.id}' onclick="createImg(event)" value="生成准考证">
                            {/case}
                            {case value="1"}考试成功{/case}
                            {case value="2"}考试失败{/case}
@@ -230,7 +232,7 @@
         function pas(i){
             var na= i.name;
             $.ajax({
-                type: "POST",
+                type: "JSON",
                 url: "updainter",
                 data: {id:na},
                 success: function (data) {
@@ -246,6 +248,81 @@
                     }
                 }
             })
+        }
+        function createImg(event) {
+            var id = event.target.dataset.id;
+            //获取对应数据；
+            var ansyncObj = new Promise( (resolve, reject) => {
+                $.ajax({
+                    url: "getDetailInfo",
+                    data: { id: id },
+                    method: 'POST',
+                    type: "JSON",
+                    success: function (res) {
+                        var res = JSON.parse(res);
+                        // console.log(res);
+                        if(res.status == 1){
+                            resolve(res.data);
+                        }else if(res.status == 2){
+                            if(confirm(res.msg + ' 是否重新生成？')){
+                                resolve(res.data);
+                            }
+                        }else {
+                            alert(res.msg);
+                        }
+                        
+                    },
+                    fail: function (err) {
+                        reject(err);
+                    }
+                })
+            });
+            //生成图片，并上传保存；
+            ansyncObj.then( (data) => {
+                var arr = [
+                    {name:'考生姓名', val: data.username},
+                    {name:'报考专业', val: data.subject},
+                    {name:'考生考号', val: data.examnum},
+                    {name:'身份证号', val: data.idcar},
+                    {name:'就读学校', val: data.school},
+                    {name:'考点名称', val: data.examaddress},
+                    {name:'考场考号', val: data.examaddnum},
+                ]
+                var img = data.image;
+                // console.log('THEN: ' + data.username);
+                var config = {
+                    width: 360,
+                    height: 420,
+                }
+                var createImg = new CreateImg(img, arr, config);
+                createImg.init(function(data) {
+                    // console.log('cb'+data);
+                    if(!data){
+                        alert('生成准考证失败');
+                        return ;
+                    }
+                    //上传并保存图片；
+                    $.ajax({
+                        url: "base64imgsave",
+                        data: { id: id, imgbase64: data },
+                        method: 'POST',
+                        type: "JSON",
+                        success: function (res) {
+                            // console.log(res);
+                            if (res.status == 1) {
+                                alert('成功');
+                            } else {
+                                alert(res.msg);
+                            }
+                        },
+                        fail: function (err) {
+                            alert(err);
+                        }
+                    })
+
+                }); 
+            })
+            
         }
     </script>
 

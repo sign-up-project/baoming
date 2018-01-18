@@ -30,7 +30,7 @@ class Userinfo extends Model
     //获取图片；
     public function getImageAttr($v)
     {
-        return $v ? (request() -> domain().DS.$v) : '' ;
+        return $v ? (request() -> domain() . $v) : '' ;
     }
     //获取身份证号；
     public function getIdcarAttr($v)
@@ -47,5 +47,10 @@ class Userinfo extends Model
 //    {
 //        return date('Y-m-d H:i:s', $v);
 //    }
+    //考试状态；
+    public function getExamstatusAttr($v)
+    {
+        return $v == 1 ? '已考' : '待考';
+    }
 
 }

@@ -25,7 +25,7 @@ class base extends Controller
     {
         //判断登录状态；
         if(!Session::get('index_login_status')['status'] && !Session::has('index_login_status')){
-            echo "<script>alert('您还未登录，请重新登录！');location.href='/index/login/login'</script>";
+            echo "<script>alert('您还未登录，请重新登录！');location.href='/index.php/index/login/login'</script>";
         }
     }
 }

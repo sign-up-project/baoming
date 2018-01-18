@@ -27,13 +27,15 @@ class Entryinfo extends Base
         if(!$user_id) {
             return json_encode(array('status'=>0, 'msg'=>'用户状态异常'));
         }
-        $res = Db::name('userinfo') -> where(['user_id'=>$user_id]) -> select();
+        $res = Db::name('userinfo') 
+        -> where(['user_id'=>$user_id,'paystatus'=>1])
+        -> select();
         if(empty($res)) {
             return json_encode(array('status'=>0, 'msg'=>'暂无查询数据'));
         }
         foreach($res as $k => $v){
             $domain = $this->request ->domain();
-            $res[$k]['image'] = $domain.DS.$v['image'];
+            $res[$k]['image'] = $domain.$v['image'];
         }
         return json_encode(array('status'=>1, 'msg'=>'OK', 'data'=>$res));
     }
@@ -47,10 +49,17 @@ class Entryinfo extends Base
     //查看报名详情
     public function getEntryinfo()
     {
-        $id = $this->request -> post('id');
+        $id = input('id', 0, 'intval');
+        if(!$id){
+            return json_encode(array('status'=>0,'msg'=> '网络异常，请联系管理员'));
+        }
         $userinfo = new Userinfo();
-
-        $res = $userinfo -> where(['id'=>$id]) -> find();
+        $res = $userinfo
+        -> alias('u')
+        -> join('subject s','u.major = s.id')
+        -> where(['u.id'=>$id])
+        -> field('u.*, s.subject, s.submoney')
+        -> find();
         if(empty($res)){
             return json_encode(array('status'=>0,'msg'=> '网络繁忙，请稍后重试'));
         }
@@ -72,10 +81,30 @@ class Entryinfo extends Base
         if(!$user_id) {
             return json_encode(array('status'=>0, 'msg'=>'用户状态异常'));
         }
-        $res = Db::name('userinfo') -> where(['user_id'=>$user_id]) -> field('username,sex,idcar,examscore') -> select();
+
+        // 查询分数线
+        $throughLine = Db::name('through-line') -> find();
+        $throughLine = $throughLine['through'];//
+
+        $userinfo = new Userinfo();
+        $res = $userinfo 
+        -> where(['user_id'=>$user_id,'paystatus'=>1])
+        -> where('examstatus', 'EGT', 1)
+        -> field('username,sex,idcar,examscore') 
+        -> select();
         if(empty($res)) {
             return json_encode(array('status'=>0, 'msg'=>'暂无查询数据'));
         }
+        foreach ($res as $key => $value) {
+             //考试是否通过状态；
+            if($value['examscore'] >= $throughLine) {
+                $res[$key]['status'] = 1;
+            }else{
+                $res[$key]['status'] = 0;
+            }
+        }
+       
+        // $res = $res -> toArray();
         return json_encode(array('status'=>1, 'msg'=>'OK', 'data'=>$res));
     }
 
@@ -92,10 +121,24 @@ class Entryinfo extends Base
         if(!$user_id) {
             return json_encode(array('status'=>0, 'msg'=>'用户状态异常'));
         }
-        $res = Db::name('userinfo') -> where(['user_id'=>$user_id]) -> field('username,sex,idcar,examnum,examstatus,major,interviewstatus,examscore') -> select();
+        // 查询分数线
+        $throughLine = Db::name('through-line') -> find();
+        $throughLine = $throughLine['through'];//
+
+        $userinfo = new Userinfo();
+        $res = $userinfo 
+        -> alias('u')
+        -> join('subject s','u.major = s.id')
+        -> where(['u.user_id'=>$user_id,'u.paystatus'=>1])
+        -> where('u.examscore', 'EGT', $throughLine)
+        -> field('u.username,u.sex,u.idcar,u.examnum,u.examstatus,major,u.interviewstatus,u.examscore,s.subject') 
+        -> select();
         if(empty($res)) {
             return json_encode(array('status'=>0, 'msg'=>'暂无查询数据'));
         }
+        
+        // $res = $res -> toArray();
         return json_encode(array('status'=>1, 'msg'=>'OK', 'data'=>$res));
     }
+
 }

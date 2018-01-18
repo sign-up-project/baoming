@@ -33,7 +33,7 @@
                             <td>图片</td>
                             <td >
                                 <div class="head_img">
-                                    <img v-bind:src="detail.image" alt="" v-if="detail.image != ''">
+                                    <img v-bind:src="detail.image" alt="" v-if="detail.image">
                                     <a href="javascript:" v-bind:data-id="detail.id" v-on:click="toUploadImg($event)" v-else>上传照片</a>
                                 </div>
                             </td>
@@ -48,12 +48,16 @@
                             <td>{{detail.idcar}}</td>
                         </tr>
                         <tr>
-                            <td>学校</td>
+                            <td>考生考号</td>
+                            <td>{{detail.examnum}}</td>
+                        </tr>
+                        <tr>
+                            <td>就读学校</td>
                             <td>{{detail.school}}</td>
                         </tr>
                         <tr>
                             <td>报考科目</td>
-                            <td>{{detail.major}}</td>
+                            <td>{{detail.subject}}</td>
                         </tr>
                         <tr>
                             <td>现居住地</td>
@@ -78,11 +82,19 @@
                         </tr>
                         <tr>
                             <td>报名状态</td>
-                            <td>{{detail.paystatus}}</td>
+                            <td>{{detail.paystatus == 1 ? '已报名' : '未报名'}}</td>
                         </tr>
                         <tr>
                             <td>报名时间</td>
                             <td>{{detail.addtime}}</td>
+                        </tr>
+                        <tr>
+                            <td>考试状态</td>
+                            <td>{{detail.examstatus}}</td>
+                        </tr>
+                        <tr>
+                            <td>考试时间</td>
+                            <td>{{detail.examtime ? detail.examtime : '暂未公布' }}</td>
                         </tr>
 
                     </table>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>报名信息列表</title>
+    <title>录取信息列表</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="stylesheet" href="__STATIC__/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="__STATIC__/layer_mobile/need/layer.css">
@@ -37,7 +37,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="item,index in computedList" :key="item.id">
+                    <tr v-for="item,index in list" :key="item.id">
                         <td v-text="item.username"></td>
                         <td v-text="item.sex"></td>
                         <td v-text="item.idcar"></td>

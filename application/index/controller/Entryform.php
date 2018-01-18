@@ -110,7 +110,7 @@ class Entryform extends Base
             if($info){
                 // 成功上传后 获取上传信息
                 $filename = $info->getSaveName();
-                $imgPath = 'uploads' . DS . $filename;
+                $imgPath = DS . 'uploads' . DS . $filename;
             }else{
                 // 上传失败获取错误信息
                 return json_encode(array('status'=>0, 'msg'=>$file->getError()));
