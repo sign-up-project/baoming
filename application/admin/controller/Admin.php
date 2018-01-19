@@ -20,12 +20,12 @@ class Admin extends controller
         if(!empty($user)){
            if($user['password'] == $password){
                Session::set('status','success');
-               $this->success('登录成功','admin/index');
+               $this->success('登录成功','/index.php/admin/admin/index');
            }else{
-               $this->error('密码错误，登录失败','admin/register');
+               $this->error('密码错误，登录失败','/index.php/admin/admin/register');
            }
         }else{
-            $this->error('账号错误，登录失败','admin/register');
+            $this->error('账号错误，登录失败','/index.php/admin/admin/register');
         }
     }
     //修改密码，包含updatepaw和repwd两个方法
@@ -34,7 +34,7 @@ class Admin extends controller
         if($ses){
             return $this->fetch();
         }else{
-            $this->error('请通过登录方式进入后台','admin/register');
+            $this->error('请通过登录方式进入后台','/index.php/admin/admin/register');
         }
     }
     public function repwd(){
