@@ -80,7 +80,7 @@ window.onload = function () {
                             time: 1,
                             success: function() {
                                 setTimeout(function() {
-                                    history.back();
+                                    location.href = '/index.php/index/index/index';
                                 }, 1000)
                             }
                         });

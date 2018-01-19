@@ -92,3 +92,12 @@
     border-radius: 25px;
     background-color: #018FD0;
 }
+.p_tip {
+    background-color: #eee;
+    font-size: 13px;
+    margin-top: 20px;
+    padding: 10px;
+}
+.p_tip .t_title{
+    font-weight: bold;
+}

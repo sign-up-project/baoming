@@ -8,10 +8,16 @@ window.onload = function() {
         data: {
             list: [],
         },
+        
         created: function() {
+            var layer_index = layer.open({
+                type: 2,
+                content: '加载中...'
+            })
             //获取报名信息；
             axios.get('/index.php/index/entryinfo/getEntryinfoList').then(function(res) {
-                console.log(res);
+                // console.log(res);
+                layer.close(layer_index);
                 if(res.data.status == 1){
                     this.list = res.data.data;
                 }else{
