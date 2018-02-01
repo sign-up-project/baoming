@@ -56,16 +56,26 @@
                             <td>{{detail.school}}</td>
                         </tr>
                         <tr>
+                            <td>学校地址</td>
+                            <td>
+                                <span> {{detail.province}} </span>
+                                <span> {{detail.city}} </span>
+                                <span> {{detail.district}} </span>
+                                <br>
+                                <span> {{detail.address}} </span>
+                            </td>
+                        </tr>
+                        <tr>
                             <td>报考科目</td>
                             <td>{{detail.subject}}</td>
                         </tr>
                         <tr>
                             <td>现居住地</td>
                             <td>
-                                <span> {{detail.province}} </span>
-                                <span> {{detail.city}} </span>
-                                <span> {{detail.district}} </span><br>
-                                <span> {{detail.address}} </span>
+                                <span> {{detail.stu_province}} </span>
+                                <span> {{detail.stu_city}} </span>
+                                <span> {{detail.stu_district}} </span><br>
+                                <span> {{detail.stu_address}} </span>
                             </td>
                         </tr>
                         <tr v-if="detail.brtel">
@@ -73,11 +83,11 @@
                             <td>{{detail.brtel}}</td>
                         </tr>
                         <tr v-if="detail.telone">
-                            <td>家长电话1</td>
+                            <td>家长电话</td>
                             <td>{{detail.telone}}</td>
                         </tr>
-                        <tr v-if="detail.teltwo">
-                            <td>家长电话2</td>
+                        <tr>
+                            <td>班主任电话</td>
                             <td>{{detail.teltwo}}</td>
                         </tr>
                         <tr>

@@ -22,10 +22,10 @@ class Admin extends controller
                Session::set('status','success');
                $this->success('登录成功','/index.php/admin/admin/index');
            }else{
-               $this->error('密码错误，登录失败','/index.php/admin/admin/register');
+               $this->error('密码错误，登录失败','admin/register');
            }
         }else{
-            $this->error('账号错误，登录失败','/index.php/admin/admin/register');
+            $this->error('账号错误，登录失败','admin/register');
         }
     }
     //修改密码，包含updatepaw和repwd两个方法
@@ -34,7 +34,7 @@ class Admin extends controller
         if($ses){
             return $this->fetch();
         }else{
-            $this->error('请通过登录方式进入后台','/index.php/admin/admin/register');
+            $this->error('请通过登录方式进入后台','admin/register');
         }
     }
     public function repwd(){
@@ -299,10 +299,12 @@ class Admin extends controller
         ->find();
         if(!empty($res)){
             $res['image'] = request() -> domain().$res['image'];
+            $res['examnum'] = substr($res['idcar'], 0, 6) . substr(str_pad($res['examnum'], 5, '0',STR_PAD_LEFT), -5);
             //如果已有准考证；
             if($res['examimg']){
                 return json_encode(array('status'=>2,'msg'=>'准考证已生成','data'=>$res));
             }
+            
             return json_encode(array('status'=>1,'msg'=>'OK','data'=>$res));
         }
         return json_encode(array('status'=>0,'msg'=>'网络繁忙，请稍后重试'));
@@ -366,6 +368,24 @@ class Admin extends controller
             
             return $ary;
         
+    }
+
+    //图片预览；
+    public function previewImage(){
+        $id=input('id', 0, 'intval');
+        if(!$id){
+            return array('status'=>0,'msg'=>'服务器异常，请联系管理员');
+        }
+        $fil=Db::name('userinfo')->where(['id'=>$id])->field('examimg,id,username')->find();
+        if(empty($fil)){
+            return array('status'=>0,'msg'=>'信息不存在');
+        }
+        if(!$fil['examimg']){
+            return array('status'=>0,'msg'=>'未生成准考证');
+        }
+        $url =  request() ->domain() . $fil['examimg'];
+        return array('status'=>1,'msg'=>'OK','data'=> $url);
+       
     }
 
 }

@@ -13,6 +13,7 @@ use app\index\common\Base;
 use app\index\model\Userinfo;
 use think\Db;
 use think\Session;
+use think\Cookie;
 class Entryinfo extends Base
 {
     //报名信息 列表页；
@@ -23,7 +24,9 @@ class Entryinfo extends Base
     //获取列表信息；
     public function getEntryinfoList()
     {
-        $user_id = Session::get('index_login_status')['user_id'];
+        $user = Session::get('index_login_status');
+        $user_id = $user['user_id'];
+        $user_id = $user_id ? $user_id : Cookie::get('cookie_login_id');
         if(!$user_id) {
             return json_encode(array('status'=>0, 'msg'=>'用户状态异常'));
         }
@@ -37,6 +40,7 @@ class Entryinfo extends Base
             $domain = $this->request ->domain();
             $res[$k]['image'] = $domain.$v['image'];
         }
+        // dump(Session::get('index_login_status'));
         return json_encode(array('status'=>1, 'msg'=>'OK', 'data'=>$res));
     }
 
@@ -78,6 +82,7 @@ class Entryinfo extends Base
     public function getScore()
     {
         $user_id = Session::get('index_login_status')['user_id'];
+        $user_id = $user_id ? $user_id : Cookie::get('cookie_login_id');
         if(!$user_id) {
             return json_encode(array('status'=>0, 'msg'=>'用户状态异常'));
         }
@@ -118,6 +123,7 @@ class Entryinfo extends Base
     public function getMatriculate()
     {
         $user_id = Session::get('index_login_status')['user_id'];
+        $user_id = $user_id ? $user_id : Cookie::get('cookie_login_id');
         if(!$user_id) {
             return json_encode(array('status'=>0, 'msg'=>'用户状态异常'));
         }
