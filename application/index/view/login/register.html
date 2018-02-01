@@ -1,6 +1,7 @@
 <!-- 用户注册 -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>注册</title>
@@ -17,50 +18,54 @@
     <script type="text/javascript" src="__STATIC__/layer_mobile/layer.js"></script>
     <script type="text/javascript" src="__JS__/index/register.js"></script>
 </head>
+
 <body>
 
-<div id="reg_page" class="form_page" v-bind:style="{width: width + 'px',height: height + 'px',}">
-    <!--模糊层-->
-    <div class="blur"></div>
-    <!--主要内容 start-->
-    <div class="main">
-        <div class="container" >
-            <div class="row">
-                <div class="form_wrap col-xs-12 col-md-6 col-md-offset-3">
+    <div id="reg_page" class="form_page" v-bind:style="{width: width + 'px',height: height + 'px',}">
+        <!--模糊层-->
+        <div class="blur">
+            <div></div>
+        </div>
+        <!--主要内容 start-->
+        <div class="main">
+            <div class="container">
+                <div class="row">
+                    <div class="form_wrap col-xs-12 col-md-6 col-md-offset-3">
 
-                    <p class="f_title">注册</p>
-                    <form action="" method="post" class="" id="reg_form" v-on:submit.prevent="submitForm">
-                        <label class="f_label">
+                        <p class="f_title">注册</p>
+                        <div id="reg_form">
+                            <label class="f_label">
                             <span class="l_t"><span class="red"> * </span> 用户名</span>
                             <input type="text" name="account" placeholder="用户名" class="f_username" v-on:blur="accountBlur($event)" v-model="account.account"/>
                         </label>
 
-                        <label class="f_label">
+                            <label class="f_label">
                             <span class="l_t"><span class="red"> * </span> 登录密码</span>
                             <input type="password" name="password" placeholder="登录密码" class="f_pwd" v-model="account.password" />
                         </label>
 
-                        <label class="f_label">
+                            <label class="f_label">
                             <span class="l_t"><span class="red"> * </span> 确认密码</span>
                             <input type="password"  placeholder="登录密码" class="f_pwd" v-model="account.password2" />
                         </label>
 
-                        <label class="f_label">
+                            <label class="f_label">
                             <span class="l_t">手机号码</span>
                             <input type="number" name="phone" placeholder="手机号码" class="f_pwd" v-on:blur="accountBlur($event)" v-model="account.phone" />
                         </label>
-                        <br>
-                        <button type="submit" class="sub_btn">注 册</button>
-                    </form>
-                    <p class="f_btn login_btn"> 已有账户？<a href="{:url('index/login/login')}"> 立即登录</a></p>
+                            <br>
+                            <button type="submit" class="sub_btn" v-on:click="submitForm">注 册</button>
+                        </div>
+                        <p class="f_btn login_btn"> 已有账户？<a href="{:url('index/login/login')}"> 立即登录</a></p>
 
+                    </div>
                 </div>
             </div>
         </div>
+        <!--主要内容 end-->
     </div>
-    <!--主要内容 end-->
-</div>
 
 
 </body>
+
 </html>

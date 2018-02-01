@@ -48,9 +48,15 @@ class Userinfo extends Model
 //        return date('Y-m-d H:i:s', $v);
 //    }
     //考试状态；
-    public function getExamstatusAttr($v)
+    public function getExamstatusAttr($v,$data)
     {
         return $v == 1 ? '已考' : '待考';
+    }
+
+    //考试状态；
+    public function getExamnumAttr($v,$data)
+    {
+        return substr($data['idcar'], 0, 6).substr(str_pad($data['examnum'], 5, '0',STR_PAD_LEFT), -5);
     }
 
 }

@@ -1,6 +1,7 @@
 <!-- 用户登录 -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>登录</title>
@@ -16,24 +17,25 @@
     <script type="text/javascript" src="__STATIC__/layer_mobile/layer.js"></script>
     <script type="text/javascript" src="__JS__/index/login.js"></script>
 </head>
+
 <body>
     <div id="login_page" class="form_page" v-bind:style="{width: width + 'px',height: height + 'px',}">
         <!--模糊层-->
         <div class="blur"></div>
         <!--主要内容 start-->
         <div class="main">
-            <div class="container" >
+            <div class="container">
                 <div class="row">
                     <div class="form_wrap col-xs-12 col-md-6 col-md-offset-3">
 
                         <p class="f_title">用户登录</p>
-                        <form action="" method="post" class="" id="login_form" v-on:submit.prevent="submitForm">
-                            <input type="text" name="account" placeholder="用户名" class="f_username" v-model="account.account"/>
+                        <div id="login_form">
+                            <input type="text" name="account" placeholder="用户名" class="f_username" v-model="account.account" />
                             <br>
                             <input type="password" name="password" placeholder="登录密码" class="f_pwd" v-model="account.password" />
                             <br>
-                            <button type="submit" class="sub_btn"> 登 录 </button>
-                        </form>
+                            <button type="submit" class="sub_btn" v-on:click='submitForm'> 登 录 </button>
+                        </div>
                         <p class="f_btn reg_btn"><span class="l"><a href="{:url('index/login/pwdReset')}"> 忘记密码</a></span> <span class="r">没有账户？<a href="{:url('index/login/register')}"> 立即注册</a></span></p>
 
                     </div>
@@ -56,4 +58,5 @@
         <!--主要内容 end-->
     </div>
 </body>
+
 </html>

@@ -1,8 +1,22 @@
 /**
  * Created by Administrator on 2018/1/5.
  */
-window.onload = function () {
 
+
+function getQueryString(name) {
+     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+     var r = window.location.search.substr(1).match(reg);
+     if (r != null) return unescape(r[2]); return null;
+    
+ 
+} 
+
+window.onload = function () {
+    var layer_alert = layer.open({
+        type: 2,
+        content: '加载中...',
+        shadeClose: false
+    });
     var app = new Vue({
         el: '#login_page',
         data: {
@@ -15,9 +29,37 @@ window.onload = function () {
             }
         },
         created: function () {
+            
           //获取浏览器的宽高；
             this.width = window.innerWidth;
-            this.height = window.innerHeight;
+            this.height = window.innerHeight; 
+            
+            var code = getQueryString("code");
+            if (code) {
+                axios.post("/index.php/index/Login/getOpenid", { code: code }).then(function (res) {
+                    layer.close(layer_alert);
+                    // console.log(res);
+                }).catch(function (err) {
+                    console.log(err);
+                })
+            } else {
+                axios.get('/index.php/index/Login/checkOpenid').then(function (res) {
+                    layer.close(layer_alert);
+                    if(!res.data){
+                        layer.open({
+                            content: '数据异常，继续使用将不能体验报名功能<br/>如需报名，请从报名入口重新进入此程序',
+                            btn: '好的'
+                        });
+                    }
+                }).catch(function(err){
+                    layer.close(layer_alert);
+                    layer.open({
+                        content: '数据异常，继续使用将不能体验报名功能<br/>如需报名，请从报名入口重新进入此程序',
+                        btn: '好的'
+                    });
+                })
+                
+            }
         },
         methods: {
             submitForm: function() {

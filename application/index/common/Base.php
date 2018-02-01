@@ -10,7 +10,7 @@ namespace app\index\common;
 
 use think\Controller;
 use think\Request;
-use think\Session;
+use think\Cookie;
 
 class base extends Controller
 {
@@ -24,7 +24,7 @@ class base extends Controller
     public function _initialize()
     {
         //判断登录状态；
-        if(!Session::get('index_login_status')['status'] && !Session::has('index_login_status')){
+        if(!Cookie::has('cookie_login_id') && !Cookie::get('cookie_login_id')){
             echo "<script>alert('您还未登录，请重新登录！');location.href='/index.php/index/login/login'</script>";
         }
     }

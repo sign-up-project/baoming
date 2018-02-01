@@ -53,7 +53,7 @@ window.onload = function() {
                         layer.open({
                             content: res.data.msg,
                             skin: 'msg',
-                            time: 2,
+                            time: 1,
                             success: function() {
 
                                 setTimeout(function() {
@@ -61,6 +61,11 @@ window.onload = function() {
                                 }, 1000);
 
                             }
+                        })
+                    }else{
+                        layer.open({
+                            content: res.data.msg,
+                            time: 2,
                         })
                     }
                 }).catch(function (err) {

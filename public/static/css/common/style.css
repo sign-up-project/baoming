@@ -1,10 +1,12 @@
 /*表单（登录、注册、报名）页面样式*/
-input,button{
+
+input,
+button {
     outline: none;
     border: none;
 }
 
-.blur{
+.blur {
     width: 100%;
     height: 100%;
     background: #eeeeee url('../../images/login_bg.jpg') center/cover fixed;
@@ -13,21 +15,22 @@ input,button{
 .main {
     width: 100%;
     height: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
     background-color: rgba(255, 255, 255, 0.1);
     position: absolute;
     top: 0;
     left: 0;
     z-index: 10;
 }
-.main .container{
-    flex: 1;
+
+.main .container {
+    height: auto;
+    margin-top: 66px;
 }
-#login_form input,#login_form button,
-#reg_form input,#reg_form button {
+
+#login_form input,
+#login_form button,
+#reg_form input,
+#reg_form button {
     width: 100%;
     display: block;
     box-sizing: border-box;
@@ -42,12 +45,13 @@ input,button{
     text-align: center;
 }
 
-.form_wrap form{
+.form_wrap #login_form,
+.form_wrap #reg_form {
     padding: 10px 0;
 }
 
 .f_btn {
-    font-size: 11px;
+    font-size: 12px;
     text-align: right;
     color: #666;
 }

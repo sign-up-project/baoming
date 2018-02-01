@@ -15,11 +15,11 @@ return [
     // 服务器地址
     'hostname'        => '127.0.0.1',
     // 数据库名
-    'database'        => 'baoming',
+    'database'        => 'xmyishu',
     // 用户名
-    'username'        => 'root',
+    'username'        => 'xmyishu',
     // 密码
-    'password'        => 'root',
+    'password'        => 'xmyishu',
     // 端口
     'hostport'        => '',
     // 连接dsn

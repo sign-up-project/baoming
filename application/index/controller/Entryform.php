@@ -11,6 +11,8 @@ namespace app\index\controller;
 use app\index\common\Base;
 use think\Db;
 use think\Session;
+use think\Cookie;
+use think\Loader;
 class Entryform extends Base
 {
 
@@ -57,36 +59,36 @@ class Entryform extends Base
 //            // 上传失败获取错误信息
 //            return json_encode(array('status'=>0, 'msg'=>'未获取到上传的图片'));
 //        }
+
+
+        //获取用户id
+        $userinfo = Session::get('index_login_status');
+        $uid = $userinfo['user_id'] ? $userinfo['user_id'] : Cookie::get('cookie_login_id');
+        if(!$uid) {
+            return json_encode(array('status'=>0, 'msg'=>'用户状态异常'));
+        }
         //获取post 数据；
         $data = $this->request -> post();
 
 //        $data['image'] = $imgPath;//图片路径；
 
-        //获取用户id
-        $userinfo = Session::get('index_login_status');
-        $uid = $userinfo['user_id'];
+       
         $data['user_id'] = $uid;
         $data['ordernum'] = $this->createOrderNum($uid);
+		$data['idcar_area'] = substr($data['idcar'], 0, 6);
         $data['addtime'] = time();
 
         $resId = Db::name('userinfo') -> insertGetId($data);
         if($resId <= 0){
             return json_encode(array('status'=>0, 'msg'=>'数据提交失败'));
         }
-        $resData = Db::name('userinfo') ->where(['id'=>$resId]) -> field('username') -> find();
-//        if(!empty($resData)){
-//
-//        }
-        return json_encode(array('status'=>1, 'msg'=>'信息提交成功','data'=>$resData));
+
+        return json_encode(array('status'=>1, 'msg'=>'信息提交成功','data'=>array('id'=> $resId)));
     }
 
     //生成订单号；
     public function createOrderNum($id = 01) {
         return date('YmdHis').substr($id.rand(10000,99999),0,7);
-    }
-    //生成考生号
-    public function createExamNum() {
-
     }
 
 //    图片上传 page
@@ -99,7 +101,7 @@ class Entryform extends Base
     {
         $id = $this->request -> post('id');
         if(!$id) {
-            return json_encode(array('status'=>0, 'msg'=>'服务器异常'));
+            return json_encode(array('status'=>0, 'msg'=>'数据异常'));
         }
         // 获取表单上传文件 例如上传了001.jpg
         $file = $this->request -> file('image');
@@ -126,4 +128,7 @@ class Entryform extends Base
         }
         return json_encode(array('status'=>0, 'msg'=>'网络繁忙，请稍后重试'));
     }
+
+
+
 }

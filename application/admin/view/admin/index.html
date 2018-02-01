@@ -134,6 +134,9 @@
                                <input style="width: 58px" type="button" name="{$res.id},1" onclick="pas(this)" value="通过"><br>
                                <input style="margin-top: 5px" type="button" name="{$res.id},2" onclick="pas(this)" value="未通过"><br>
                                <input style="margin-top: 5px" type="button" data-id='{$res.id}' onclick="createImg(event)" value="生成准考证">
+                              <!-- <input style="margin-top: 5px" type="button" name='{$res.id}' onclick="downloadi(this)" value="下载准考证">-->
+                               <input style="margin-top: 5px" type="button" data-id='{$res.id}' onclick="previewImage(event)" value="预览">
+
                            {/case}
                            {case value="1"}考试成功{/case}
                            {case value="2"}考试失败{/case}
@@ -232,7 +235,7 @@
         function pas(i){
             var na= i.name;
             $.ajax({
-                type: "JSON",
+                type: "POST",
                 url: "updainter",
                 data: {id:na},
                 success: function (data) {
@@ -247,6 +250,23 @@
                         alert("录入失败，请联系开发人员");
                     }
                 }
+            })
+        }
+        function downloadi(i){
+            var id= i.name;
+            $.ajax({
+                type: "POST",
+                url: "downloadimg",
+                data: {id:id},
+                success: function (data) {
+                      if(data == 1){
+                          alert('下载成功');
+                          location.reload();
+                      }
+                    else if(data == 2){
+                          alert('创建文件夹成功，请重新尝试');
+                      }
+                   }
             })
         }
         function createImg(event) {
@@ -291,8 +311,8 @@
                 var img = data.image;
                 // console.log('THEN: ' + data.username);
                 var config = {
-                    width: 360,
-                    height: 420,
+                    width: 794,
+                    height: 1123,
                 }
                 var createImg = new CreateImg(img, arr, config);
                 createImg.init(function(data) {
@@ -322,7 +342,30 @@
 
                 }); 
             })
-            
+        }
+        
+        //图片预览
+        function previewImage(event) {
+            var id = event.target.dataset.id;
+            //获取对应数据；
+            $.ajax({
+                url: "previewImage",
+                data: { id: id },
+                type: 'POST',
+                dataType: 'JSON',
+                success: function (res) {
+                   // console.log(res);
+                   if(res.status == 1){
+                        window.open(res.data, '_target');
+                   }else{
+                        alert(res.msg);
+                   }
+                    
+                },
+                fail: function (err) {
+                  
+                }
+            })
         }
     </script>
 
