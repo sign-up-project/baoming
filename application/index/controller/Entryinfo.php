@@ -61,8 +61,9 @@ class Entryinfo extends Base
         $res = $userinfo
         -> alias('u')
         -> join('subject s','u.major = s.id')
+        -> join('subject m','u.major2 = m.id')
         -> where(['u.id'=>$id])
-        -> field('u.*, s.subject, s.submoney')
+        -> field('u.*, s.subject, s.submoney,m.subject subject2')
         -> find();
         if(empty($res)){
             return json_encode(array('status'=>0,'msg'=> '网络繁忙，请稍后重试'));

@@ -207,6 +207,7 @@ window.onload = function() {
                 idcar: '', //身份证号
                 school: '', //学校
                 major: 0, //课程
+                major2: 0, //课程
                 brtel: '', //本人电话
                 telone: '', //家长电话  1
                 teltwo: '', //家长电话 2
@@ -221,8 +222,8 @@ window.onload = function() {
                 stu_address: '', //详细地址 住址
 
             },
-            major: '',
-            cost: '0.00',
+            majors: [],
+            cost: 0,
 
             previewImg: '', //上传图片预览地址；
             addressList: {}, //地址总列表；；
@@ -261,20 +262,41 @@ window.onload = function() {
         },
         watch: {
             // 如果  发生改变，这个函数就会运行
-            major: function(newQuestion, oldQuestion) {
+            majors: function(newQuestion, oldQuestion) {
+                // 最多选两项；
+                var checkbox = document.getElementsByClassName('major')[0].getElementsByTagName('input');
+                if(this.majors.length >= 2){
+                    for(let i in checkbox){ 
+                         if (!checkbox[i].checked) {
+                            checkbox[i].disabled = true;
+                        } 
+                    }
+                } else {
+                    for (let i in checkbox) {
+                        checkbox[i].disabled = false;
+                    }
+                }
                 this.getCost();
             }
         },
         methods: {
             getCost: function() {
+                this.info.major = this.majors[0] != undefined ? this.majors[0] : 0;
+                this.info.major2 = this.majors[1] != undefined ? this.majors[1] : 0;
+                if (this.majors.length == 0){
+                    this.cost = 0;
+                    return ;
+                }
                 var _self = this;
-                var id = this.major;
-                this.info.major = id;
-                this.subject.forEach(function(v) {
-                    if (v.id == id) {
-                        _self.cost = v.submoney;
-                    }
-                })
+                for(let i = 0; i < this.majors.length; i++){
+                    var id = this.majors[i];
+                    this.subject.forEach(function (v) {
+                        if (v.id == id) {
+                          _self.cost = _self.cost >= v.submoney ? _self.cost : v.submoney;
+                        }
+                    })
+                }
+                
             },
             //表单提交
             submitForm: function(event) {
